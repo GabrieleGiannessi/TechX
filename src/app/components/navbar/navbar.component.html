@@ -1,9 +1,25 @@
-<div class="container-fluid bg-primary d-fixed-top">
-    <div class="d-flex justify-content-start">
-        <a href="/home">
-        <img src=""
-        class=""
-        alt="">
+<div class="navbar navbar-expand-lg bg-primary">
+        <a href="/home" class="navbar-brand">
+            TechX
         </a>
+    <div class="d-flex flex-row-reverse">
+        <div class="btn-group">
+            <button class="btn dropdown-toggle">
+                <img 
+                #profileImage
+                [src]="" alt="Profile photo">
+            </button>
+            <div class="dropdown-menu">
+                <div class="dropdown-item" (click)="this.router.navigateByUrl('profile/'+this.authService.currentUserCredential()?.uid)">
+                    Profilo
+                </div>
+                <div class="dropdown-item" (click)="this.router.navigateByUrl('saved/'+this.authService.currentUserCredential()?.uid)">
+                    Articoli preferiti
+                </div>
+                <div class="dropdown-item" (click)="this.router.navigateByUrl('chats/'+this.authService.currentUserCredential()?.uid)">
+                    Messaggi
+                </div>
+            </div>
+        </div>
     </div>
 </div>
