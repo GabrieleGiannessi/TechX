@@ -1,1 +1,90 @@
-<p>register-page works!</p>
+<div class="container-fluid bg-light" style="height: 100vh;">
+    <div class="container-fluid h-75 d-flex flex-column align-items-center justify-content-center px-5 m-auto">
+        <div class="d-flex flex-column bg-white rounded-4 w-75">
+
+            <!-- email -->
+             <form class="p-3">
+                 <div class="row g-3 align-items-center">
+                     <div class="col-auto">
+                       <label for="email" class="col-form-label">Email</label>
+                     </div>
+                     <div class="col-auto">
+                       <input type="email" id="email" class="form-control" aria-describedby="email">
+                     </div>
+                     <div class="col-auto">
+                        @if (form.invalid && (form.controls['email'].touched || form.controls['email'].dirty)){
+                            @if (form.controls['email'].errors?.['required']) {
+                                <span class="form-text text-danger">
+                                    Inserisci una email
+                                  </span>
+                            }@else if (form.controls['email'].errors?.['email']){
+                                <span class="form-text text-danger">
+                                    L'email non è corretta
+                                  </span>
+                            }
+                        }
+                     </div>
+                   </div>
+     
+                 <!-- password -->
+                 <div class="row g-3 align-items-center">
+                     <div class="col-auto">
+                       <label for="password" class="col-form-label">Password</label>
+                     </div>
+                     <div class="col-auto">
+                       <input type="password" id="password" class="form-control" aria-describedby="password">
+                     </div>
+                     <div class="col-auto">
+                        @if (form.invalid && (form.controls['password'].touched || form.controls['password'].dirty)){
+                            @if (form.controls['password'].errors?.['required']) {
+                                <span class="form-text text-danger">
+                                    Inserisci una password
+                                  </span>
+                            }@else if (form.controls['password'].errors?.['minlength']){
+                                <span class="form-text text-danger">
+                                    La password deve essere di almeno 8 caratteri
+                                  </span>
+                            }@else if (form.controls['password'].errors?.['whitespace']) {
+                                <span class="form-text text-danger">
+                                    Nella password non ci possono essere spazi
+                                  </span>
+                            }
+                        }
+                     </div>
+                   </div>
+     
+                   <!-- username -->
+                 <div class="row g-3 align-items-center">
+                     <div class="col-auto">
+                       <label for="username" class="col-form-label">Username</label>
+                     </div>
+                     <div class="col-auto">
+                       <input type="password" id="username" class="form-control" aria-describedby="username">
+                     </div>
+                     <div class="col-auto">
+                         
+                        @if (form.invalid && (form.controls['username'].touched || form.controls['username'].dirty)){
+                            @if (form.controls['username'].errors?.['required']) {
+                                <span class="form-text text-danger">
+                                    Inserisci una username
+                                  </span>
+                            }@else if (form.controls['username'].errors?.['minlength']){
+                                <span class="form-text text-danger">
+                                    Lo username deve avere almeno 5 caratteri
+                                  </span>
+                            }@else if (form.controls['username'].errors?.['istaken']){
+                                <span class="form-text text-danger">
+                                    Lo username è già stato preso
+                                  </span>
+                            }
+
+                        }
+                     </div>
+                   </div>
+     
+                  <button type="submit" class="btn btn-outline-primary border-0 shadow-none rounded-2"
+                  (click)="onSubmit($event)">Registrati</button>
+             </form>
+        </div>
+    </div>
+</div>

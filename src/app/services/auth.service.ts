@@ -31,6 +31,7 @@ export class AuthService {
             this.currentUserSig.set({
               uid : user.uid, 
               email : user.email!, 
+              displayName :  snap.docs[0].data()['displayName'],
               phoneNumber : snap.docs[0].data()['phoneNumber'], 
               photoURL : snap.docs[0].data()['photoURL'],
               description : snap.docs[0].data()['description'],
@@ -63,10 +64,11 @@ export class AuthService {
 }
 
 export interface UserInterface {
-  uid : string; 
-  phoneNumber : string; 
-  photoURL : string; 
-  email : string; 
-  description : string; 
+  uid : string, 
+  phoneNumber : string, 
+  photoURL : string, 
+  email : string, 
+  displayName : string, 
+  description : string, 
   preferList : string[]; 
 }
