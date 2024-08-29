@@ -1,25 +1,40 @@
-<div class="navbar navbar-expand-lg bg-primary">
-        <a href="/home" class="navbar-brand">
+<div class="navbar navbar-expand-fluid bg-primary">
+        <a href="/home" class="navbar-brand ps-3 text-white">
             TechX
         </a>
-    <div class="d-flex flex-row-reverse">
-        <div class="btn-group">
-            <button class="btn dropdown-toggle">
-                <img 
-                #profileImage
-                [src]="" alt="Profile photo">
-            </button>
-            <div class="dropdown-menu">
-                <div class="dropdown-item" (click)="this.router.navigateByUrl('profile/'+this.authService.currentUserCredential()?.uid)">
-                    Profilo
-                </div>
-                <div class="dropdown-item" (click)="this.router.navigateByUrl('saved/'+this.authService.currentUserCredential()?.uid)">
-                    Articoli preferiti
-                </div>
-                <div class="dropdown-item" (click)="this.router.navigateByUrl('chats/'+this.authService.currentUserCredential()?.uid)">
-                    Messaggi
+    <div class="d-flex flex-row-reverse justify-content-end align-items-center pe-3">
+        @if (authService.logged()){
+            
+            <button type="button" class="btn btn-primary text-white border-0 shadow-none rounded-pill px-2 ">Carica articolo</button>
+            <button type="button" class="btn btn-primary text-white border-0 shadow-none rounded-circle mx-4 "><i class="bi bi-bell-fill"></i></button>
+            <div class="btn-group">
+                <button class="btn dropdown-toggle p-2 text-white border-0 shadow-none " data-bs-toggle="dropdown" type="button" aria-expanded="false">
+                    <img 
+                    #profileImage
+                    [src]="" alt="Profile photo">
+                </button>
+                <div class="dropdown-menu">
+                    <div class="dropdown-item" (click)="this.router.navigateByUrl('profile/'+this.authService.currentUserCredential()?.uid)">
+                        Profilo
+                    </div>
+                    <div class="dropdown-item" (click)="this.router.navigateByUrl('saved/'+this.authService.currentUserCredential()?.uid)">
+                        Articoli preferiti
+                    </div>
+                    <div class="dropdown-item" (click)="this.router.navigateByUrl('chats/'+this.authService.currentUserCredential()?.uid)">
+                        Messaggi
+                    </div>
                 </div>
             </div>
-        </div>
+
+
+        }@else {
+            <div class="btn-group">
+                <button class="btn btn-outline-primary">
+                    Iscriviti o accedi
+                </button>
+            </div>
+        }   
+
+
     </div>
 </div>
