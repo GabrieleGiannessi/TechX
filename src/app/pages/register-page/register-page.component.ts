@@ -17,6 +17,11 @@ export class RegisterPageComponent {
   firestoreService = inject (FirestoreService); 
   router = inject (Router);
 
+  usernameIsTaken = (firestore: FirestoreService): ValidatorFn => {
+    return (c: AbstractControl): ValidationErrors | null => {
+      return firestore.users().some(u => u.username === c.value) ? { istaken: true } : null;
+    }
+  }
 
   noWhiteSpaceValidator(c: AbstractControl): ValidationErrors | null {
     if (!c.value) return null;  // Controlla se c.value è null o undefined
@@ -27,7 +32,7 @@ export class RegisterPageComponent {
   form : FormGroup = new FormGroup ({
     email: new FormControl('', [Validators.required,Validators.email]), 
     password : new FormControl ('', [Validators.required, Validators.minLength(8), this.noWhiteSpaceValidator]), 
-    username : new FormControl ('', [Validators.required, Validators.minLength(5), this.noWhiteSpaceValidator])
+    username : new FormControl ('', [Validators.required, Validators.minLength(5), this.noWhiteSpaceValidator, this.usernameIsTaken(this.firestoreService)])
   }); 
 
   

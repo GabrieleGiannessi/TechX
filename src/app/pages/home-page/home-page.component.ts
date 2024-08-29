@@ -16,7 +16,7 @@ export class HomePageComponent {
 
   constructor(){
     effect (() => 
-    console.log (this.authService.logged())); 
+    console.log (this.authService.currentUserCredential())); 
   }
 
 }

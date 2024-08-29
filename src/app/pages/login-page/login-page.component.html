@@ -1,1 +1,78 @@
-<p>login-page works!</p>
+<div class="container-fluid bg-light" style="height: 100vh;">
+    <div class="container-fluid h-75 d-flex flex-column align-items-center justify-content-center px-5 m-auto">
+        <div class="d-flex flex-column bg-white rounded-4 w-75 p-4">
+
+            <div class="d-flex flex-column justify-content-center align-items-center mb-4">
+                <h4 class="text-primary">Registrati</h4>
+                <p class="lead">Compila i dati per poter accedere a TechX</p>
+            </div>
+
+            <!-- form -->
+            <form class="container-fluid" [formGroup]="form">
+                <!-- email -->
+                <div class="row mb-4 align-items-center">
+                    <div class="col-12 col-md-4 text-md-end">
+                        <label for="email" class="col-form-label">Email</label>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <input type="email"
+                         id="email"
+                        formControlName="email"
+                        class="form-control rounded-pill shadow-none"
+                        aria-describedby="email">
+                    </div>
+                    <div class="col-12 col-md-8 offset-md-4">
+                        @if (form.invalid && (form.controls['email'].touched || form.controls['email'].dirty)){
+                            @if (form.controls['email'].errors?.['required']) {
+                                <span class="form-text text-danger">
+                                    Inserisci una email
+                                </span>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <!-- password -->
+                <div class="row mb-4 align-items-center">
+                    <div class="col-12 col-md-4 text-md-end">
+                        <label for="password" class="col-form-label">Password</label>
+                    </div>
+                    <div class="col-12 col-md-6 position-relative">
+                        <input 
+                        type="password"
+                        id="password"
+                        formControlName="password"
+                        class="form-control rounded-pill shadow-none"
+                        aria-describedby="password">
+                        @if (form.controls['password'].value.length) {
+                            <i class="position-absolute bi bi-eye-slash h3"
+                             style="right: 25px; top: 50%; transform: translateY(-50%); cursor: pointer;"
+                             (click)="showPassword($event)"></i>
+                        }
+                    </div>
+                    <div class="col-12 col-md-8 offset-md-4">
+                        @if (form.invalid && (form.controls['password'].touched || form.controls['password'].dirty)){
+                            @if (form.controls['password'].errors?.['required']) {
+                                <span class="form-text text-danger">
+                                    Inserisci una password
+                                </span>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <div class="row d-flex justify-content-center pt-2 pb-4">
+                        <a href="/forgot-password" class="text-decoration-none outline-none text-center">Password dimenticata?</a>
+                </div>
+
+                <!-- submit button -->
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary rounded-pill px-5 py-2 shadow-none"
+                        (click)="onSubmit($event)">Login</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
