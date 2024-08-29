@@ -17,42 +17,38 @@ export class RegisterPageComponent {
   firestoreService = inject (FirestoreService); 
   router = inject (Router);
 
-  usernameIsTaken = (firestoreService: FirestoreService) : ValidatorFn => {
-    return (c : AbstractControl) => {
-      if (firestoreService.users().filter(u => u.displayName === c.value).length > 0) return { istaken : true };
-      return null; 
-    }
-  }
 
-  noWhiteSpaceValidator (c : AbstractControl) : ValidationErrors | null {
-    return c.value.trim().length === c.value.length ? null : { whitespace : true };
+  noWhiteSpaceValidator(c: AbstractControl): ValidationErrors | null {
+    if (!c.value) return null;  // Controlla se c.value è null o undefined
+    return c.value.trim().length === c.value.length ? null : { whitespace: true };
   }
+  
 
   form : FormGroup = new FormGroup ({
     email: new FormControl('', [Validators.required,Validators.email]), 
     password : new FormControl ('', [Validators.required, Validators.minLength(8), this.noWhiteSpaceValidator]), 
-    username : new FormControl ('', [Validators.required, Validators.minLength(5), this.noWhiteSpaceValidator, this.usernameIsTaken(this.firestoreService)])
+    username : new FormControl ('', [Validators.required, Validators.minLength(5), this.noWhiteSpaceValidator])
   }); 
 
   
 onSubmit(e : Event) {
   e.preventDefault(); 
+  this.form.markAllAsTouched(); 
 
   if (!this.form.valid) return; 
 
-  const { email, password, username } = this.form.value; 
+  const { email, password, username } = this.form.value; //sono validi
   this.authService.register(email, password).then(response => {
     this.firestoreService.addUser({
       uid : response.user.uid,  
       email : email, 
-      displayName : username, 
+      username : username, 
       photoURL : 'unknown.png', 
       description: '', 
       preferList : [], 
       phoneNumber : ''
-    }).then(() => {
-      this.router.navigateByUrl ('/home'); 
-    })
+    }); 
+    this.router.navigateByUrl ('/home'); 
   })
   .catch ((error) => { console.log (error.message); })
 }

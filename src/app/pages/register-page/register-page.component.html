@@ -1,94 +1,99 @@
 <div class="container-fluid bg-light" style="height: 100vh;">
     <div class="container-fluid h-75 d-flex flex-column align-items-center justify-content-center px-5 m-auto">
-        <div class="d-flex flex-column bg-white rounded-4 w-75">
+        <div class="d-flex flex-column bg-white rounded-4 w-75 p-4">
 
-                <div class="d-flex flex-column justify-content-center align-items-center p-2 ">
-                    <h4 class="text-primary">Registrati</h4>
-                    <p class="lead">Compila i dati per poter accedere a TechX</p>
+            <div class="d-flex flex-column justify-content-center align-items-center mb-4">
+                <h4 class="text-primary">Registrati</h4>
+                <p class="lead">Compila i dati per poter accedere a TechX</p>
+            </div>
 
-                </div>
-            <!-- email -->
-             <form class="container-fluid p-3">
-                 <div class="row g-3 align-items-center">
-                     <div class="col-auto">
-                       <label for="email" class="col-form-label">Email</label>
-                     </div>
-                     <div class="col-auto">
-                       <input type="email" id="email" class="form-control rounded-pill shadow-none" aria-describedby="email">
-                     </div>
-                     <div class="col-auto">
+            <!-- form -->
+            <form class="container-fluid" [formGroup]="form">
+                <!-- email -->
+                <div class="row mb-4 align-items-center">
+                    <div class="col-12 col-md-4 text-md-end">
+                        <label for="email" class="col-form-label">Email</label>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <input type="email" id="email" formControlName="email" class="form-control rounded-pill shadow-none" aria-describedby="email">
+                    </div>
+                    <div class="col-12 col-md-8 offset-md-4">
                         @if (form.invalid && (form.controls['email'].touched || form.controls['email'].dirty)){
                             @if (form.controls['email'].errors?.['required']) {
                                 <span class="form-text text-danger">
                                     Inserisci una email
-                                  </span>
+                                </span>
                             }@else if (form.controls['email'].errors?.['email']){
                                 <span class="form-text text-danger">
                                     L'email non è corretta
-                                  </span>
+                                </span>
                             }
                         }
-                     </div>
-                   </div>
-     
-                 <!-- password -->
-                 <div class="row g-3 align-items-center">
-                     <div class="col-auto">
-                       <label for="password" class="col-form-label">Password</label>
-                     </div>
-                     <div class="col-auto">
-                       <input type="password" id="password" class="form-control rounded-pill shadow-none" aria-describedby="password">
-                     </div>
-                     <div class="col-auto">
+                    </div>
+                </div>
+
+                <!-- password -->
+                <div class="row mb-4 align-items-center">
+                    <div class="col-12 col-md-4 text-md-end">
+                        <label for="password" class="col-form-label">Password</label>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <input type="password" id="password" formControlName="password" class="form-control rounded-pill shadow-none" aria-describedby="password">
+                    </div>
+                    <div class="col-12 col-md-8 offset-md-4">
                         @if (form.invalid && (form.controls['password'].touched || form.controls['password'].dirty)){
                             @if (form.controls['password'].errors?.['required']) {
                                 <span class="form-text text-danger">
                                     Inserisci una password
-                                  </span>
+                                </span>
                             }@else if (form.controls['password'].errors?.['minlength']){
                                 <span class="form-text text-danger">
                                     La password deve essere di almeno 8 caratteri
-                                  </span>
+                                </span>
                             }@else if (form.controls['password'].errors?.['whitespace']) {
                                 <span class="form-text text-danger">
                                     Nella password non ci possono essere spazi
-                                  </span>
+                                </span>
                             }
                         }
-                     </div>
-                   </div>
-     
-                   <!-- username -->
-                 <div class="row g-3 align-items-center">
-                     <div class="col-auto">
-                       <label for="username" class="col-form-label">Username</label>
-                     </div>
-                     <div class="col-auto">
-                       <input type="text" id="username" class="form-control rounded-pill shadow-none" aria-describedby="username">
-                     </div>
-                     <div class="col-auto">
+                    </div>
+                </div>
+
+                <!-- username -->
+                <div class="row mb-4 align-items-center">
+                    <div class="col-12 col-md-4 text-md-end">
+                        <label for="username" class="col-form-label">Username</label>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <input type="text" id="username" formControlName="username" class="form-control rounded-pill shadow-none" aria-describedby="username">
+                    </div>
+                    <div class="col-12 col-md-8 offset-md-4">
                         @if (form.invalid && (form.controls['username'].touched || form.controls['username'].dirty)){
                             @if (form.controls['username'].errors?.['required']) {
                                 <span class="form-text text-danger">
                                     Inserisci una username
-                                  </span>
+                                </span>
                             }@else if (form.controls['username'].errors?.['minlength']){
                                 <span class="form-text text-danger">
                                     Lo username deve avere almeno 5 caratteri
-                                  </span>
+                                </span>
                             }@else if (form.controls['username'].errors?.['istaken']){
                                 <span class="form-text text-danger">
                                     Lo username è già stato preso
-                                  </span>
+                                </span>
                             }
-
                         }
-                     </div>
-                   </div>
-     
-                  <button type="submit" class="btn btn-outline-primary border-0 shadow-none rounded-2"
-                  (click)="onSubmit($event)">Registrati</button>
-             </form>
+                    </div>
+                </div>
+
+                <!-- submit button -->
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary rounded-pill px-5 py-2 shadow-none"
+                        (click)="onSubmit($event)">Registrati</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
