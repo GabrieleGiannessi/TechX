@@ -7,6 +7,7 @@ import { provideServiceWorker } from '@angular/service-worker';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
+import { provideAuth, getAuth } from '@angular/fire/auth';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBfLUXCZ8C8k4KgAGAO5sHrFSdDBtkboc8",
@@ -24,6 +25,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, withComponentInputBinding()),
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
+    provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
     provideClientHydration(), 
