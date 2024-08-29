@@ -1,5 +1,5 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithCredential, signInWithEmailAndPassword, signInWithPopup, signOut } from '@angular/fire/auth';
+import { Auth, createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, sendPasswordResetEmail, signInWithCredential, signInWithEmailAndPassword, signInWithPopup, signOut } from '@angular/fire/auth';
 import { collection, getDocs, query } from '@angular/fire/firestore';
 import { FirestoreService } from './firestore.service';
 import { where } from 'firebase/firestore';
@@ -58,6 +58,10 @@ export class AuthService {
 
   signInWithGoogle(){
     return signInWithPopup (this.auth, new GoogleAuthProvider()); 
+  }
+
+  sendPasswordResetEmail(email: string){
+    return sendPasswordResetEmail(this.auth, email); 
   }
 
 }
