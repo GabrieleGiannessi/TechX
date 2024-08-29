@@ -9,7 +9,6 @@ import { where } from 'firebase/firestore';
 })
 export class AuthService {
 
-
   auth = inject (Auth); 
   firestore = inject (FirestoreService); 
 

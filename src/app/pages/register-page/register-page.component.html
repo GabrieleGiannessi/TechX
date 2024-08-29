@@ -2,14 +2,19 @@
     <div class="container-fluid h-75 d-flex flex-column align-items-center justify-content-center px-5 m-auto">
         <div class="d-flex flex-column bg-white rounded-4 w-75">
 
+                <div class="d-flex flex-column justify-content-center align-items-center p-2 ">
+                    <h4 class="text-primary">Registrati</h4>
+                    <p class="lead">Compila i dati per poter accedere a TechX</p>
+
+                </div>
             <!-- email -->
-             <form class="p-3">
+             <form class="container-fluid p-3">
                  <div class="row g-3 align-items-center">
                      <div class="col-auto">
                        <label for="email" class="col-form-label">Email</label>
                      </div>
                      <div class="col-auto">
-                       <input type="email" id="email" class="form-control" aria-describedby="email">
+                       <input type="email" id="email" class="form-control rounded-pill shadow-none" aria-describedby="email">
                      </div>
                      <div class="col-auto">
                         @if (form.invalid && (form.controls['email'].touched || form.controls['email'].dirty)){
@@ -32,7 +37,7 @@
                        <label for="password" class="col-form-label">Password</label>
                      </div>
                      <div class="col-auto">
-                       <input type="password" id="password" class="form-control" aria-describedby="password">
+                       <input type="password" id="password" class="form-control rounded-pill shadow-none" aria-describedby="password">
                      </div>
                      <div class="col-auto">
                         @if (form.invalid && (form.controls['password'].touched || form.controls['password'].dirty)){
@@ -59,10 +64,9 @@
                        <label for="username" class="col-form-label">Username</label>
                      </div>
                      <div class="col-auto">
-                       <input type="password" id="username" class="form-control" aria-describedby="username">
+                       <input type="text" id="username" class="form-control rounded-pill shadow-none" aria-describedby="username">
                      </div>
                      <div class="col-auto">
-                         
                         @if (form.invalid && (form.controls['username'].touched || form.controls['username'].dirty)){
                             @if (form.controls['username'].errors?.['required']) {
                                 <span class="form-text text-danger">

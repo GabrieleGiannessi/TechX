@@ -11,30 +11,50 @@
                 <button class="btn dropdown-toggle p-2 text-white border-0 shadow-none " data-bs-toggle="dropdown" type="button" aria-expanded="false">
                     <img 
                     #profileImage
-                    [src]="" alt="Profile photo">
+                    [src]="" alt="Profile photo"
+                    class="img-fluid img-thumbnail " style="border-radius: 50%; object-fit: contain; width: 2.5em; height: 2.5em;">
                 </button>
-                <div class="dropdown-menu">
-                    <div class="dropdown-item" (click)="this.router.navigateByUrl('profile/'+this.authService.currentUserCredential()?.uid)">
+                <ul class="dropdown-menu">
+                    <li class="dropdown-item" (click)="this.router.navigateByUrl('profile/'+this.authService.currentUserCredential()?.uid)">
                         Profilo
-                    </div>
-                    <div class="dropdown-item" (click)="this.router.navigateByUrl('saved/'+this.authService.currentUserCredential()?.uid)">
+                    </li>
+                    <li class="dropdown-divider"></li>
+                    <li class="dropdown-item" (click)="this.router.navigateByUrl('saved/'+this.authService.currentUserCredential()?.uid)">
                         Articoli preferiti
-                    </div>
-                    <div class="dropdown-item" (click)="this.router.navigateByUrl('chats/'+this.authService.currentUserCredential()?.uid)">
+                    </li>
+                    <li class="dropdown-item" (click)="this.router.navigateByUrl('chats/'+this.authService.currentUserCredential()?.uid)">
                         Messaggi
-                    </div>
-                </div>
+                    </li>
+                    <li class="dropdown-item text-danger" (click)="this.authService.logout()">
+                        Esci 
+                    </li>
+                </ul>
             </div>
 
 
         }@else {
-            <div class="btn-group">
-                <button class="btn btn-outline-primary">
-                    Iscriviti o accedi
-                </button>
-            </div>
+        <button class="btn btn-outline-primary pe-4" (click)="open(content)">
+	        Iscriviti - Accedi
+        </button>
         }   
-
-
     </div>
 </div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="mb-3 d-flex flex-column justify-content-center align-items-center">
+            <button class="btn border border-secondary text-secondary bg-light rounded-pill p-3 d-flex align-items-center gap-3">
+                <img src="../assets/google-icon.png" alt="google photo" class="img-fluid" style="object-fit: contain; width: 2.5rem; height: 2.5rem;">
+                <span>Accedi con google</span>
+            </button> 
+
+            <h4 class="text-secondary mt-3">Oppure</h4>
+            <span class="text-secondary fs-6 mt-4">Accedi tramite <a href="/login" class="outline-none text-primary">email e password</a></span>
+            <span class="text-secondary fs-6 mt-2">Non hai un account?  <a href="/register" class="outline-none text-primary">Registrati!</a></span>
+        </div>
+    </div>
+</ng-template>  
+
