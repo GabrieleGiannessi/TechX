@@ -14,7 +14,7 @@ export class StorageService {
     if (!files) return null; 
 
     if (files.length === 1) {
-      const storage = ref (this.storage, files[0].name); 
+      const storage = ref (this.storage, 'profiles/' + files[0].name); 
       return uploadBytesResumable (storage, files[0]); 
 
     }

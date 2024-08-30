@@ -44,6 +44,11 @@ export class FirestoreService {
     return updateDoc ( ref, { phoneNumber : phoneNumber }); 
   }
 
+  updateProfilePic (id : string, photoURL : string){
+    const ref = doc (this.firestore, 'users', id);
+    return updateDoc ( ref, { photoURL : photoURL }); 
+  }
+
   updatePreferList(id:string, articleID : string){
     const ref = doc (this.firestore, 'users', id);
     return updateDoc ( ref, { preferList : arrayUnion (articleID)})

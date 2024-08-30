@@ -48,7 +48,11 @@ export class ProfilePageComponent {
 
   uploadPhoto(){
     const input = <HTMLInputElement> document.querySelector('#profile'); 
-    this.storage.uploadProfilePic(input); 
+    const files = input.files ? input.files : null; 
+    if (files){
+      this.storage.uploadProfilePic(input); 
+      this.firestore.updateProfilePic(this.id(), files[0]!.name); 
+    } 
   }
 
 }

@@ -5,7 +5,8 @@
     <div class="d-none d-md-flex flex-row-reverse justify-content-end align-items-center pe-3" style="animation: fade-down 0.5s;">
         @if (authService.logged()){
             
-            <button type="button" class="btn btn-primary text-white border-0 shadow-none rounded-pill px-2 ">Carica articolo</button>
+            <button type="button" class="btn btn-primary text-white border-0 shadow-none rounded-pill px-2 "
+            (click)="this.router.navigateByUrl('new')">Carica articolo</button>
             <button type="button" class="btn btn-primary text-white border-0 shadow-none rounded-circle mx-4 "><i class="bi bi-bell-fill"></i></button>
             <div class="btn-group">
                 <button class="btn dropdown-toggle p-2 text-white border-0 shadow-none " data-bs-toggle="dropdown" type="button" aria-expanded="false">

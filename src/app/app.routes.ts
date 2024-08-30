@@ -10,14 +10,16 @@ import { ForgotPasswordPageComponent } from './pages/forgot-password-page/forgot
 import { ModifyUserPageComponent } from './pages/modify-user-page/modify-user-page.component';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { SavedArticlePageComponent } from './pages/saved-article-page/saved-article-page.component';
+import { CreateNewArticlePageComponent } from './pages/create-new-article-page/create-new-article-page.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomePageComponent, title:'Home' },
     { path: 'profile/:id', component: ProfilePageComponent , title:'Profile' },
     { path: 'article/:id', component: ArticlePageComponent, title:'Article' },
     { path: 'saved/:id', component: SavedArticlePageComponent, title:'Saved' },
-    { path: 'articles', component: ArticlesPageComponent , title:'Articles'},
     { path: 'chats/:id', component:  ChatsPageComponent, title:'Chats' },
+    { path: 'new', component:  CreateNewArticlePageComponent, title:'New article' },
+    { path: 'articles', component: ArticlesPageComponent , title:'Articles'},
     { path: 'login', component: LoginPageComponent , title:'Login' },
     { path: 'register', component: RegisterPageComponent , title: 'Register' },
     { path: 'forgot-password', component: ForgotPasswordPageComponent , title:'Forgot Password' },

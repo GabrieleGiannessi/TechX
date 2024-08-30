@@ -10,26 +10,28 @@
                             alt="Profile photo"
                             class="img-fluid p-2"
                             style="object-fit: cover; border-radius: 50%; width: 16rem; height: 16rem;">
-                    
-                        @if (authService.currentUserCredential()?.uid === user()?.uid) {
-                            <!-- Input di tipo file nascosto ma presente -->
-                            <input 
-                            type="file"
-                            id="profile"
+                        
+                        <div class="position-relative">
+                            @if (authService.currentUserCredential()?.uid === user()?.uid) {
+                                <!-- Input di tipo file nascosto -->
+                                <input 
+                                type="file"
+                                id="profile"
                                 (change)="uploadPhoto()"
                                 accept=".png,.jpg,.jpeg"
-                                style="position: absolute; opacity: 0;">
-                    
-                            <!-- Pulsante sopra l'immagine -->
-                            <label for="profile" class="position-absolute bottom-0 start-50 translate-middle-x" style="cursor: pointer;">
-                                <button class="btn btn-primary border-0 rounded-circle">
-                                    <i class="bi bi-camera text-white h4"></i>
-                                </button>
-                            </label>
-                        }
-                    
+                                class="d-none">
+                            
+                                <!-- Label sopra l'immagine, cliccabile per selezionare file -->
+                                <label for="profile" class="position-absolute bottom-0 start-50 translate-middle-x cursor-pointer">
+                                    <div class="btn btn-primary border-0 rounded-circle">
+                                        <i class="bi bi-camera text-white h4"></i>
+                                    </div>
+                                </label>
+                            }
+                        </div>
                         <span class="text-muted fs-4"> {{ user()?.username }} </span>
                     </div>
+                    
                 </div>
 
                 <div class="list-group list-group-flush account-settings-links">
@@ -85,7 +87,7 @@
                             </div>
 
                             @if (authService.currentUserCredential()?.uid === user()?.uid) {
-                                <div class="d-flex align-items-center justify-content-center">
+                                <div class="d-flex justify-content-end p-3">
                                     <button class="btn btn-primary border-0 border-pill"
                                     (click)="this.router.navigateByUrl('modify/'+this.user()?.uid)"
                                     >
