@@ -9,7 +9,7 @@ export class StorageService {
 
   storage = inject (Storage); 
 
-  updateProfilePic(){}
+  uploadProfilePic(){}
 
   fetchProfilePic(url : string ){
     return getDownloadURL(ref(this.storage, 'images/profiles/'+url));
@@ -17,9 +17,8 @@ export class StorageService {
   }
 
   uploadArticlePhoto(){
-
   }
-  
+
   fetchArticlePhoto(url : string){
     return getDownloadURL(ref(this.storage, 'images/articles/'+url))
   }

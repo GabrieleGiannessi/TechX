@@ -3,6 +3,7 @@ import { FilterButtonComponent } from "../../components/filter-button/filter-but
 import { FirestoreService } from '../../services/firestore.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ArticleComponent } from "../../components/article/article.component";
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-articles-page',
@@ -13,9 +14,10 @@ import { ArticleComponent } from "../../components/article/article.component";
 })
 export class ArticlesPageComponent {
 
-  firestore = inject (FirestoreService); 
+  firestore = inject (FirestoreService)
   router = inject (Router)
   route = inject (ActivatedRoute)
+  authService = inject (AuthService)
 
   queryParams : Params = {
     title : '', 
@@ -29,6 +31,6 @@ export class ArticlesPageComponent {
     if (this.route.snapshot.queryParams['order']) this.queryParams['order'] = this.route.snapshot.queryParams['order'];
   }
 
-  
+
 
 }

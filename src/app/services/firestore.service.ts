@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { addDoc, collectionData, Firestore } from '@angular/fire/firestore';
+import { addDoc, arrayRemove, arrayUnion, collectionData, doc, Firestore, updateDoc } from '@angular/fire/firestore';
 import { collection, CollectionReference, Timestamp } from 'firebase/firestore';
 import { UserInterface } from './auth.service';
 import { toSignal } from '@angular/core/rxjs-interop'
@@ -36,6 +36,21 @@ export class FirestoreService {
   updateDescription(){}
   updatePhoneNumber(){}
 
+  updatePreferList(id:string, articleID : string){
+    const ref = doc (this.firestore, 'users', id);
+    return updateDoc ( ref, { preferList : arrayUnion (articleID)})
+  }
+
+  deleteFromPreferList(id:string, articleID : string){
+    const ref = doc (this.firestore, 'users', id);
+    return updateDoc ( ref, { preferList : arrayRemove (id)})
+  }
+
+  updateNumPrefersArticle(id : string, value : number){
+    const ref = doc (this.firestore, 'articles', id); 
+    return updateDoc (ref, { numPrefers : value})
+  }
+
   updateArticlePhoto(){}
 }
 
@@ -49,6 +64,6 @@ export interface Article{
   state : string, 
   data : Timestamp
   description : string,
-  numPrefers : string, 
+  numPrefers : number, 
   preferList : string[]
 }
