@@ -7,8 +7,10 @@
         </div>
         <div 
         class="position-relative">
+
             <img #articleImage [src]="article().photos[0]" class="card-img-top" alt="article photo"
-                style="object-fit: contain;">
+                style="object-fit: contain;"
+                (click)="this.router.navigateByUrl('article/'+article().id)">
             <button class="position-absolute bottom-0 end-0 bg-light rounded-circle border-0 me-2 mb-2 p-2 "
             (click)="setPrefer()">
             @if (prefer()) {
@@ -21,7 +23,7 @@
                 }
             </button>
         </div>
-        <div class="card-body h-100" (click)="this.router.navigateByUrl('article/'+article().id)">
+        <div class="card-body h-100">
             <div class="pb-2 ps-2">
                 <h5 class="card-title">{{ title() }}</h5>
                 <small class="text-muted"> {{ price() }}€</small>
