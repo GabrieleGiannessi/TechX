@@ -1,0 +1,19 @@
+<div class="dropdown-center">
+    <button class="btn border border-primary bg-white rounded-pill dropdown-toggle" data-bs-toggle="dropdown" > {{ label() }} </button>
+        <ul class="dropdown-menu">
+            <li class="dropdown-item">
+                <label for="typeahead-focus text-muted">Immetti la categoria:</label>
+                    <input
+                        id="typeahead-focus"
+                        type="text"
+                        class="form-control shadow-none rounded-pill"
+                        [ngbTypeahead]="search"
+                        (focus)="focus$.next($any($event).target.value)"
+                        (click)="click$.next($any($event).target.value)"
+                        #instance="ngbTypeahead"
+                        [formControl]="text"
+                        (keyup)="onKeyUp($event)"
+                    />
+            </li>
+        </ul>
+</div>

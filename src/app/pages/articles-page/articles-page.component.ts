@@ -1,14 +1,19 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { FilterButtonComponent } from "../../components/filter-button/filter-button.component";
 import { FirestoreService } from '../../services/firestore.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ArticleComponent } from "../../components/article/article.component";
 import { AuthService } from '../../services/auth.service';
+import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
+import { debounceTime, distinctUntilChanged, filter, map, merge, Observable, OperatorFunction, Subject } from 'rxjs';
+import { CategoryFilterComponent } from "../../components/category-filter/category-filter.component";
+
+
 
 @Component({
   selector: 'app-articles-page',
   standalone: true,
-  imports: [FilterButtonComponent, ArticleComponent],
+  imports: [FilterButtonComponent, ArticleComponent, CategoryFilterComponent],
   templateUrl: './articles-page.component.html',
   styleUrl: './articles-page.component.css'
 })
@@ -24,6 +29,10 @@ export class ArticlesPageComponent {
     category : '', 
     order : '', 
   }
+
+  category = 'categoria'; 
+  order = 'ordine'; 
+  prezzo = 'price'; 
 
   constructor(){
     if (this.route.snapshot.queryParams['title']) this.queryParams['title'] = this.route.snapshot.queryParams['title'];
