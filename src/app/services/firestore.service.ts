@@ -68,7 +68,7 @@ export class FirestoreService {
 }
 
 export interface Article{
-  id : string, 
+  id? : string, 
   userID : string, 
   title : string, 
   category: string, 

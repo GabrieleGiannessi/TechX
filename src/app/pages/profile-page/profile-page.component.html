@@ -114,7 +114,7 @@
                             @defer () {
                                 @for (article of userArticles(); track $index) {
                                     @if (authService.logged()) {
-                                        @if (authService.currentUserCredential()?.preferList && authService.currentUserCredential()!.preferList.includes(article.id) ) {
+                                        @if (authService.currentUserCredential()?.preferList && authService.currentUserCredential()!.preferList.includes(article.id!) ) {
                                             <app-article
                                         [article]="article"
                                         [isPrefered]="true"/>

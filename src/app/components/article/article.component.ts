@@ -54,12 +54,12 @@ export class ArticleComponent {
   setPrefer(){
     if (this.authService.logged()){
       if (this.isPrefered()){
-        this.firestore.updateNumPrefersArticle(this.article().id, this.article().numPrefers - 1)
-          this.firestore.deleteFromPreferList (this.authService.currentUserCredential()!.uid, this.article().id)
+        this.firestore.updateNumPrefersArticle(this.article().id!, this.article().numPrefers - 1)
+          this.firestore.deleteFromPreferList (this.authService.currentUserCredential()!.uid, this.article().id!)
             this.isPrefered.set(false); 
       }else{
-        this.firestore.updateNumPrefersArticle(this.article().id, this.article().numPrefers + 1)
-          this.firestore.updatePreferList (this.authService.currentUserCredential()!.uid, this.article().id)
+        this.firestore.updateNumPrefersArticle(this.article().id!, this.article().numPrefers + 1)
+          this.firestore.updatePreferList (this.authService.currentUserCredential()!.uid, this.article().id!)
             this.isPrefered.set(true)
       }
     }else {

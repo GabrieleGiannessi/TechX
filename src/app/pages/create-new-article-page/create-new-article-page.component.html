@@ -1,20 +1,143 @@
-<div class="container-fluid d-flex justify-content-center align-items-center" style="padding-top: 6em;">
+<div class="container-fluid d-flex justify-content-center align-items-center" style="padding-top: 6em; padding-bottom: 3em;">
     <div class="d-flex flex-column justify-content-center align-items-center rounded-4 bg-white p-4 w-75">
         <!-- sezione immagini -->
-        <div class="position-relative d-flex flex-column align-items-center justify-content-center border rounded-2 p-3 w-75">
+        <div class="position-relative d-flex flex-column align-items-center justify-content-center border rounded-4 p-3 w-75">
             <!-- Input file nascosto -->
             <input 
+            multiple
             type="file"
             id="article-photos"
             accept=".jpeg,.jpg,.png,"
             class="d-none">
 
-            <label for="article-photos" class="d-flex flex-column align-items-center cursor-pointer">
+            <label for="article-photos" class="d-flex flex-column align-items-center cursor-pointer" style="height: calc(20vh);">
                 <i class="bi bi-cloud-arrow-down-fill h2"></i>
                 <span class="text-muted p-1">Inserisci delle foto che riguardano l'articolo</span>
             </label>
         </div>
         
         <!-- campi form -->
+        <div class="d-flex flex-column my-3 p-3 w-75">
+                 <form action="">
+                 <div class="d-flex flex-row align-items-center mb-5 w-100">
+                     <label for="title" class="form-label d-flex justify-content-center align-items-center pe-3">Titolo</label>
+                     <input type="text"
+                     class="form-control rounded-pill shadow-none"
+                     formControlName="title"
+                     id="title"
+                     placeholder="Esempio: stampante 3D">
+                     @if (form.invalid && (form.controls['title'].touched || form.controls['title'].dirty)){
+                        @if (form.controls['title'].errors?.['required']) {
+                            <span class="form-text text-danger">
+                                Inserisci un titolo
+                            </span>
+                        }
+                     }
+                 </div>
+
+                 <div class="d-flex flex-row align-items-center mb-5 w-100">
+                    <label for="category" class="form-label d-flex justify-content-center align-items-center pe-3">Categoria</label>
+                    <input type="text"
+                    class="form-control rounded-pill shadow-none"
+                    formControlName="category"
+                    id="category"
+                    placeholder="Esempio: Droni">
+                    @if (form.invalid && (form.controls['category'].touched || form.controls['category'].dirty)){
+                        @if (form.controls['category'].errors?.['required']) {
+                            <span class="form-text text-danger">
+                                Inserisci una categoria
+                            </span>
+                        }@else if (form.controls['category'].errors?.['notvalid']) {
+                            <span class="form-text text-danger">
+                                Categoria non valida
+                            </span>
+                        }
+                     }
+                </div>
+
+                <div class="d-flex flex-row align-items-center mb-5 w-100">
+                    <label for="price" class="form-label d-flex justify-content-center align-items-center pe-3">Prezzo</label>
+                    <input type="number"
+                    class="form-control rounded-pill shadow-none"
+                    formControlName="price"
+                    id="price"
+                    placeholder="100">
+                    @if (form.invalid && (form.controls['price'].touched || form.controls['price'].dirty)){
+                        @if (form.controls['price'].errors?.['required']) {
+                            <span class="form-text text-danger">
+                                Inserisci il prezzo dell'articolo
+                            </span>
+                        }
+                     }
+                </div>
+
+                <div class="d-flex flex-row align-items-center mb-5 w-100">
+                    <label for="state" class="form-label d-flex justify-content-center align-items-center pe-3">Stato</label>
+                    <select name="state"
+                    id="state"
+                    formControlName="state"
+                    class="form-select rounded-pill text-muted shadow-none">
+                    <option class="bg-white text-dark" value="">Ottimo - come nuovo</option>
+                    <option class="bg-white text-dark" value="">Buono</option>
+                    <option class="bg-white text-dark" value="">Discreto</option>
+                    <option class="bg-white text-dark" value="">Accettabile</option>  
+                </select>
+                
+                @if (form.invalid && (form.controls['state'].touched || form.controls['state'].dirty)){
+                    @if (form.controls['state'].errors?.['required']) {
+                        <span class="form-text text-danger">
+                            Aggiungere uno stato all'articolo
+                        </span>
+                    }
+                 }
+                </div>
+
+                <div class="d-flex flex-row align-items-center mb-5 w-100">
+                    <label for="description" class="form-label d-flex justify-content-center align-items-center pe-3">Descrizione</label>
+                    <textarea 
+                    name="description"
+                    id="description"
+                    class="form-control rounded-3 shadow-none"
+                    rows="3"
+                    formControlName="description"></textarea>
+                    
+                    @if (form.invalid && (form.controls['description'].touched || form.controls['description'].dirty)){
+                        @if (form.controls['description'].errors?.['required']) {
+                            <span class="form-text text-danger">
+                                Inserisci una descrizione
+                            </span>
+                        }@else if (form.controls['description'].errors?.['minlength']) {
+                            <span class="form-text text-danger">
+                                La descrizione deve essere di almeno 30 caratteri
+                            </span>
+                        }
+                     }
+                </div>
+
+                    <div class="d-flex align-items-center justify-content-center">
+                        <button 
+                        type="submit"
+                        class="btn btn-outline-primary border-0 rounded-pill p-3 mx-3"
+                        (click)="onSubmit($event)"
+                        >Crea nuovo articolo 
+                        </button>
+                    </div>
+                </form>
+             </div>
     </div>
 </div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="mb-3 d-flex flex-column justify-content-center align-items-center">
+            <span class="text-secondary fs-4">Articolo creato, naviga nel profilo per poterlo visualizzare! </span>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="modal.close('Save click'); this.router.navigateByUrl('profile/'+this.authService.currentUserCredential()?.uid)">Profilo</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.close('Save click')">Continua a modificare</button>
+    </div>
+</ng-template>  

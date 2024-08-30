@@ -18,8 +18,8 @@ export class ModifyUserPageComponent {
   authService = inject(AuthService);
   firestoreService = inject(FirestoreService);
   router = inject(Router);
-  modalService = inject(NgbModal); 
-  closeResult = ''; 
+  modalService = inject(NgbModal);
+  closeResult = '';
 
   id = input.required<string>();
 
@@ -32,7 +32,7 @@ export class ModifyUserPageComponent {
   }
 
   form: FormGroup = new FormGroup({
-    username: new FormControl('', [Validators.required, Validators.minLength(5),Validators.pattern('^[a-zA-Z0-9._-]{3,15}$'), this.usernameIsTaken(this.firestoreService)]),
+    username: new FormControl('', [Validators.required, Validators.minLength(5), Validators.pattern('^[a-zA-Z0-9._-]{3,15}$'), this.usernameIsTaken(this.firestoreService)]),
     phoneNumber: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{10}$')]),
     description: new FormControl('', [Validators.required, Validators.minLength(30)]),
   });
@@ -43,8 +43,8 @@ export class ModifyUserPageComponent {
     const { username, phoneNumber, description } = this.form.value;
 
     console.log('username: ', username)
-    console.log('phoneNumber: ', phoneNumber); 
-    console.log ('description: ', description);
+    console.log('phoneNumber: ', phoneNumber);
+    console.log('description: ', description);
     let flag = false;
 
     //controlliamo uno per uno
@@ -68,7 +68,7 @@ export class ModifyUserPageComponent {
     }
 
     if (flag) {
-      this.open(this.content); 
+      this.open(this.content);
     }
   }
 

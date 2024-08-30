@@ -14,7 +14,7 @@
      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 p-2">
         @defer () {
             @for (article of savedArticles(); track $index) {
-                    @if (authService.currentUserCredential()?.preferList && authService.currentUserCredential()!.preferList.includes(article.id) ) {
+                    @if (authService.currentUserCredential()?.preferList && authService.currentUserCredential()!.preferList.includes(article.id!) ) {
                         <app-article
                     [article]="article"
                     [isPrefered]="true"/>
