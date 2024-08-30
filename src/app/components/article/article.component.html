@@ -1,1 +1,18 @@
-<p>article works!</p>
+<div class="col">
+    <div class="card h-100">
+        <div class="card-header d-flex flex-row p-1 ">
+            <img #profileImage
+            [src]=""
+            alt="profile photo">
+            <span class="text-secondary px-2"> {{ username() }}</span>
+        </div>
+      <img [src]="" class="card-img-top" alt="article photo">
+      <div class="card-body h-100">
+        <div class="pb-2 ps-2">
+            <h5 class="card-title">{{ title() }}</h5>
+            <small class="text-muted"> {{ price()  }}€</small>
+        </div>
+        <p class="card-text p-2">{{ description() }}</p>
+      </div>
+    </div>
+  </div>

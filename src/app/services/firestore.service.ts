@@ -18,7 +18,7 @@ export class FirestoreService {
 
   articlesCollection = <CollectionReference<Article>> collection (this.firestore, 'articles'); 
   private article$ =  <Observable<Article[]>> collectionData (this.articlesCollection, { idField : 'id'}); 
-  article = toSignal (this.article$, { initialValue : []})
+  articles = toSignal (this.article$, { initialValue : []})
 
   //articles
 
@@ -45,6 +45,7 @@ export interface Article{
   title : string, 
   category: string, 
   price: number, 
+  photos : string[], 
   state : string, 
   data : Timestamp
   description : string,
