@@ -52,6 +52,9 @@ export class ProfilePageComponent {
     if (files){
       this.storage.uploadProfilePic(input); 
       this.firestore.updateProfilePic(this.id(), files[0]!.name); 
+      if (this.authService.currentUserCredential()?.uid === this.id()){ //aggiornamento in tempo reale
+        this.authService.currentUserSig.update ((user) => ({ ...user!, photoURL: files[0]!.name }))
+      }
     } 
   }
 
