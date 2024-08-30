@@ -12,7 +12,7 @@
                     <img 
                     #profileImage
                     [src]="" alt="Profile photo"
-                    class="img-fluid img-thumbnail " style="border-radius: 50%; object-fit: contain; width: 2.5em; height: 2.5em;">
+                    class="img-fluid img-thumbnail " style="border-radius: 50%; object-fit: contain; width: 3rem; height: 3rem;">
                 </button>
                 <ul class="dropdown-menu">
                     <li class="dropdown-item" (click)="this.router.navigateByUrl('profile/'+this.authService.currentUserCredential()?.uid)">

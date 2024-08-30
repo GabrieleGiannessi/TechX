@@ -1,39 +1,146 @@
 <div class="container-fluid d-flex flex-column justify-content-center align-items-center">
     <div class="d-flex bg-white rounded-4 p-4 mt-5 w-100" style="max-width: 1200px;">
-        <div class="row p-0 m-0">
-            <div class="col-md-3 pt-0 d-flex flex-column">
-                <div class="d-flex flex-column my-3 position-relative">
+        <div class="row w-100 p-0 m-0">
+            <div class="col-3 d-flex flex-column">
+                <div class="d-flex flex-column justify-content-center align-items-center my-3">
                     <img 
                     #profileImage
                     [src]="" 
                     alt="Profile photo"
                     class="img-fluid p-2"
-                    style="object-fit: contain; border-radius: 50%; width: 8rem; height: 8rem;">
+                    style="object-fit: contain; border-radius: 50%; width: 16rem; height: 16rem;">
 
-                    <input 
-                    hidden
-                    id="profile"
-                    type="file"
-                    accept=".png/.jpg/.png">
-                    <label for="profile">
-                        <button class="btn btn-primary position-absolute border-0 rounded-circle p-2" style="bottom: 0; right: 0;">
-                            <i class="bi bi-camera position-absolute top-50 start-50 translate-middle text-white h3"></i>
-                        </button>
-                    </label>
+                    @if (authService.currentUserCredential()?.uid === user()?.uid){
+                        <input 
+                        hidden
+                        id="profile"
+                        type="file"
+                        accept=".png/.jpg/.png">
+    
+                        <div class="position-relative">
+                            <label for="profile" class="position-absolute bottom-0 start-50 translate-middle-x" >
+                                <button class="btn btn-primary border-0 rounded-circle ">
+                                    <i class="bi bi-camera text-white h4"></i>
+                                </button>
+                            </label>
+                        </div>
+                    }
+
+                    <span class="text-muted fs-4"> {{ user()?.username }} </span>
                 </div>
 
                 <div class="list-group list-group-flush account-settings-links">
-                    <a class="list-group-item list-group-item-action active rounded-3" data-toggle="list">Informazioni</a>
-                    <a class="list-group-item list-group-item-action rounded-3" data-toggle="list">Articoli</a>
+                    <a class="list-group-item list-group-item-action active rounded-3" href="#informations" data-toggle="list" data-bs-toggle="tab">Informazioni</a>
+                    <a class="list-group-item list-group-item-action rounded-3" href="#articles" data-toggle="list" data-bs-toggle="tab">Articoli</a>
                 </div>
             </div>
-            <div class="col-md-9">
+            <div class="col-9">
                 <div class="tab-content">
                     <div class="tab-pane fade active show" id="informations">
-                        <!-- Content for Informations tab -->
+                        <!-- informazioni utente -->
+                        <div class="d-flex flex-column">
+                            <div class="d-flex justify-content-between p-2">
+                                <span class="text-secondary">
+                                    USERNAME:
+                                </span>
+                                @if (user()?.username) {
+                                    <span class="text-muted"> {{ user()!.username }}</span>
+                                }@else {
+                                    <span class="text-muted"> - </span>   
+                                }
+                            </div>
+                            <div class="d-flex justify-content-between p-2">
+                                <span class="text-secondary">
+                                    EMAIL:
+                                </span>
+                                @if (user()?.email) {
+                                    <span class="text-muted"> {{ user()!.email }}</span>
+                                }@else {
+                                    <span class="text-muted"> - </span>   
+                                }
+                            </div>
+                            <div class="d-flex justify-content-between p-2">
+                                <span class="text-secondary">
+                                    NUMERO DI TELEFONO
+                                </span>
+                                
+                                @if (user()?.phoneNumber) {
+                                    <span class="text-muted"> {{ user()!.phoneNumber }}</span>
+                                }@else {
+                                    <span class="text-muted"> - </span>   
+                                }
+                            </div>
+                            <div class="d-flex justify-content-between p-2">
+                                <span class="text-secondary">
+                                    DESCRIZIONE
+                                </span>
+                                @if (user()?.description) {
+                                    <span class="text-muted"> {{ user()!.description }}</span>
+                                }@else {
+                                    <span class="text-muted"> - </span>   
+                                }
+                            </div>
+
+                            @if (authService.currentUserCredential()?.uid === user()?.uid) {
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <button class="btn btn-primary border-0 border-pill"
+                                    (click)="this.router.navigateByUrl('modify/'+this.user()?.uid)"
+                                    >
+                                        Modifica dati
+                                    </button>
+                                </div>
+                            }
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="articles">
-                        <!-- Content for Articles tab -->
+                        <!-- lista degli articoli dell'utente -->
+                         <div class="d-flex flex-wrap justify-content-center align-items-center gap-2">
+                            <app-filter-button
+                            [label]="'idle'"/>
+                            <app-filter-button
+                            [label]="'booked'"/>
+                            <app-filter-button
+                            [label]="'draft'"/>
+                            <app-filter-button
+                            [label]="'sold'"/>
+                         </div>
+
+                         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 p-2">
+                            @defer () {
+                                @for (article of userArticles(); track $index) {
+                                    @if (authService.logged()) {
+                                        @if (authService.currentUserCredential()?.preferList && authService.currentUserCredential()!.preferList.includes(article.id) ) {
+                                            <app-article
+                                        [article]="article"
+                                        [isPrefered]="true"/>
+                                        }@else {
+                                            <app-article
+                                        [article]="article"
+                                        [isPrefered]="false"/>
+                                        }
+                                    }@else {
+                                        <app-article
+                                        [article]="article"
+                                        [isPrefered]="false"/>
+                                    }
+                                }@empty {             
+                                    @if (authService.currentUserCredential()?.uid === user()?.uid){ 
+                                        <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
+                                            <span class="text-secondary fs-4 py-3">Non hai caricato nessun articolo!</span>
+                                        </div>
+                                    }@else {
+                                        <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
+                                            <span class="text-secondary fs-4 py-3">L'utente non ha caricato nessun articolo!</span>
+                                        </div>
+                                    }
+                                }
+                            }@loading (minimum 0.4s){
+                                <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
+                                    <div class="spinner-border text-primary" role="status">
+                                      </div>
+                                </div>
+                            }
+                         </div>
                     </div>  
                 </div>
             </div>
