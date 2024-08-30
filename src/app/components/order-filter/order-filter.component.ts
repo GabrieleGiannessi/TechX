@@ -1,4 +1,5 @@
 import { Component, model } from '@angular/core';
+import { Params } from '@angular/router';
 
 @Component({
   selector: 'app-order-filter',
@@ -8,16 +9,19 @@ import { Component, model } from '@angular/core';
   styleUrl: './order-filter.component.css'
 })
 export class OrderFilterComponent {
-
-  label = model.required<string>(); 
-
+  
+  params = model.required<Params>(); 
+  
   setAsc(){
-    this.label.set('ASC'); 
+    this.params.set({ ...this.params(), order: 'ASC' }); 
   }
-
+  
   setDesc(){
-    this.label.set('DESC'); 
+    this.params.set({ ...this.params(), order : 'DESC' }); 
   }
-
+  
+  reset() {
+    this.params.set({ ...this.params(), order : ''})
+  }
 
 }

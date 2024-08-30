@@ -1,8 +1,8 @@
 <div class="dropdown-center">
-    @if (label()) {
-        <button class="position-relative btn border border-0 bg-info rounded-pill dropdown-toggle pe-4" data-bs-toggle="dropdown" > {{ label() }} 
+    @if (params()['order']) {
+        <button class="position-relative btn border border-0 bg-info rounded-pill dropdown-toggle pe-4" data-bs-toggle="dropdown" > {{ params()['order'] }} 
             <i class="position-absolute top-50 end-0 translate-middle-y pe-2 bi bi-x-lg"
-            (click)="this.label.set('')"></i> 
+            (click)="reset()"></i> 
         </button>
     }@else {
         <button class="btn border border-primary bg-white rounded-pill dropdown-toggle" data-bs-toggle="dropdown" > Ordine </button>

@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, effect, inject, model, signal, ViewChild } from '@angular/core';
 import { FilterButtonComponent } from "../../components/filter-button/filter-button.component";
 import { FirestoreService } from '../../services/firestore.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -25,26 +25,24 @@ export class ArticlesPageComponent {
   route = inject (ActivatedRoute)
   authService = inject (AuthService)
 
-  queryParams : Params = {
+  queryParams = signal<Params> ({
     title : '', 
     category : '', 
     order : '', 
-  }
+  });
 
   constructor(){
-    if (this.route.snapshot.queryParams['title']) this.queryParams['title'] = this.route.snapshot.queryParams['title'];
-    if (this.route.snapshot.queryParams['category']) this.queryParams['category'] = this.route.snapshot.queryParams['category'];
-    if (this.route.snapshot.queryParams['order']) this.queryParams['order'] = this.route.snapshot.queryParams['order'];
+    if (this.route.snapshot.queryParams['title']) this.queryParams.set({ ...this.queryParams(), title : this.route.snapshot.queryParams['title']});
+    if (this.route.snapshot.queryParams['category'])  this.queryParams.set({ ...this.queryParams(), title : this.route.snapshot.queryParams['category']});
+    if (this.route.snapshot.queryParams['order'])  this.queryParams.set({ ...this.queryParams(), title : this.route.snapshot.queryParams['order']});
+    
+    effect (() => {
+      console.log (this.queryParams())      
+    })
   }
 
-  onFormSubmit(e: MouseEvent) {
-    e.preventDefault();
-
-    
-    this.router.navigate(['articles'], {queryParams : this.queryParams}); 
-  
+  onFormSubmit() {
+    console.log (this.queryParams())
+    this.router.navigate(['articles'], {queryParams : this.queryParams()}); 
     }
-
-
-
 }

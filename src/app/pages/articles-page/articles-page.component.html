@@ -11,15 +11,14 @@
             </div>
     
             <app-order-filter
-            [label]="this.queryParams['order']"/>
+            [params]="queryParams()"/>
     
             <app-category-filter
-            [label]="this.queryParams['category']"/>
+            [params]="queryParams()"/>
     
             <button 
             class="btn btn-primary rounded-pill border-0"
-            type="submit"
-            (click)="onFormSubmit($event)">Applica</button>
+            (click)="onFormSubmit()">Applica</button>
     </div>
 
     <!-- articoli-->
@@ -54,6 +53,5 @@
                   </div>
             </div>
         } 
-
      </div>
 </div>
