@@ -1,1 +1,116 @@
-<p>modify-user-page works!</p>
+<div class="container-fluid bg-light" style="height: 100vh;">
+    <div class="container-fluid h-75 d-flex flex-column align-items-center justify-content-center px-5 m-auto">
+        <div class="d-flex flex-column bg-white rounded-4 w-75 p-4">
+
+            <div class="d-flex flex-column justify-content-center align-items-center mb-4">
+                <h4 class="text-primary">Registrati</h4>
+                <p class="lead">Compila i dati per poter accedere a TechX</p>
+            </div>
+
+            <!-- form -->
+            <form class="container-fluid" [formGroup]="form">
+
+                <!-- username -->
+                <div class="row mb-4 align-items-center">
+                    <div class="col-12 col-md-4 text-md-end">
+                        <label for="username" class="col-form-label">Username</label>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <input type="text" id="username" formControlName="username" class="form-control rounded-pill shadow-none" aria-describedby="username">
+                    </div>
+                    <div class="col-12 col-md-8 offset-md-4">
+                        @if (form.invalid && (form.controls['username'].touched || form.controls['username'].dirty)){
+                            @if (form.controls['username'].errors?.['required']) {
+                                <span class="form-text text-danger">
+                                    Inserisci una username
+                                </span>
+                            }@else if (form.controls['username'].errors?.['minlength']){
+                                <span class="form-text text-danger">
+                                    Lo username deve avere almeno 5 caratteri
+                                </span>
+                            }@else if (form.controls['username'].errors?.['istaken']){
+                                <span class="form-text text-danger">
+                                    Lo username è già stato preso
+                                </span>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <!-- phoneNumber  -->
+                <div class="row mb-4 align-items-center">
+                    <div class="col-12 col-md-4 text-md-end">
+                        <label for="phoneNumber" class="col-form-label">Numero di telefono</label>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <input type="text" id="phoneNumber" formControlName="phoneNumber" class="form-control rounded-pill shadow-none" aria-describedby="phoneNumber">
+                    </div>
+                    <div class="col-12 col-md-8 offset-md-4">
+                        @if (form.invalid && (form.controls['phoneNumber'].touched || form.controls['phoneNumber'].dirty)){
+                            @if (form.controls['phoneNumber'].errors?.['required']) {
+                                <span class="form-text text-danger">
+                                    Inserisci un numero di telefono
+                                </span>
+                            }@else if (form.controls['phoneNumber'].errors?.['pattern']) {
+                                <span class="form-text text-danger">
+                                    Il numero deve essere di 10 cifre e non deve contenere spazi o caratteri
+                                </span>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <!-- description -->
+                <div class="row mb-4 align-items-center">
+                    <div class="col-12 col-md-4 text-md-end">
+                        <label for="description" class="col-form-label">Descrizione</label>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <input type="text" id="description" formControlName="description" class="form-control rounded-pill shadow-none" aria-describedby="description">
+                    </div>
+                    <div class="col-12 col-md-8 offset-md-4">
+                        @if (form.invalid && (form.controls['description'].touched || form.controls['description'].dirty)){
+                            @if (form.controls['description'].errors?.['required']) {
+                                <span class="form-text text-danger">
+                                    Inserisci una descrizione
+                                </span>
+                            }@else if (form.controls['description'].errors?.['minlength']) {
+                                <span class="form-text text-danger">
+                                    La descrizione deve essere di almeno 30 caratteri
+                                </span>
+                            }@else if (form.controls['description'].errors?.['whitespace']){
+                                <span class="form-text text-danger">
+                                    La descrizione non può contenere solo spazi
+                                </span>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <!-- submit button -->
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center">
+                        <button type="submit"
+                        class="btn btn-primary rounded-pill px-5 py-2 shadow-none"
+                        (click)="onSubmit($event)">Modifica dati</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="mb-3 d-flex flex-column justify-content-center align-items-center">
+            <span class="text-secondary fs-4">Dati modificati! </span>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="modal.close('Save click'); this.router.navigateByUrl('profile/'+this.id())">Profilo</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.close('Save click')">Continua a modificare</button>
+    </div>
+</ng-template>  

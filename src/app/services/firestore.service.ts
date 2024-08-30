@@ -30,9 +30,19 @@ export class FirestoreService {
     return addDoc ( ref, article ); 
   }
 
-  updateUsername(){}
-  updateDescription(){}
-  updatePhoneNumber(){}
+  updateUsername(id:string, username:string){
+    const ref = doc (this.firestore, 'users', id);
+    return updateDoc ( ref, { username : username }); 
+  }
+
+  updateDescription(id: string, description : string){
+    const ref = doc (this.firestore, 'users', id);
+    return updateDoc ( ref, { description : description }); 
+  }
+  updatePhoneNumber(id: string, phoneNumber : string){
+    const ref = doc (this.firestore, 'users', id);
+    return updateDoc ( ref, { phoneNumber : phoneNumber }); 
+  }
 
   updatePreferList(id:string, articleID : string){
     const ref = doc (this.firestore, 'users', id);
