@@ -1,11 +1,12 @@
-<div class="input-group flex-nowrap">
+<div class="input-group flex-nowrap position-relative" style="animation: fade-up 0.5s;">
     <select 
-        class="form-select input-group-text border-0 bg-secondary shadow-none rounded-start-pill text-white fs-5"
-        aria-label="home-select"
-        (change)="onSearchTypeChange($event)">
-        <option class="bg-white text-dark" value="articles">Articoli</option>
-        <option class="bg-white text-dark" value="users">Utenti</option>
-    </select>
+    class="form-select input-group-text border-0 bg-secondary shadow-none rounded-start-pill text-white fs-5"
+    style="max-width: 160px;"  
+    aria-label="home-select"
+    (change)="onSearchTypeChange($event)">
+    <option class="bg-white text-dark" value="articles">Articoli</option>
+    <option class="bg-white text-dark" value="users">Utenti</option>
+</select>
 
     <input class="form-control form-control-lg shadow-none border-0 rounded-end-pill"
         type="text"
@@ -18,4 +19,11 @@
         }})"
         (keyup)="onKeyUp($event)"
         >
+
+    @if (text.value?.length) {
+        <i class="bi bi-search position-absolute end-0 top-50 translate-middle-y text-secondary h3 me-3"
+        (click)="this.router.navigate([this.search()], { queryParams : {
+            title : text.value
+        }})"></i>
+    }
 </div>

@@ -97,7 +97,7 @@
                     </div>
                     <div class="tab-pane fade" id="articles">
                         <!-- lista degli articoli dell'utente -->
-                         <div class="d-flex flex-wrap justify-content-center align-items-center gap-2">
+                         <div class="d-flex flex-wrap justify-content-center align-items-center gap-3">
                             <app-filter-button
                             [label]="'idle'"/>
                             <app-filter-button
@@ -108,7 +108,7 @@
                             [label]="'sold'"/>
                          </div>
 
-                         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 p-2">
+                         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 p-2 mt-4">
                             @defer () {
                                 @for (article of userArticles(); track $index) {
                                     @if (authService.logged()) {

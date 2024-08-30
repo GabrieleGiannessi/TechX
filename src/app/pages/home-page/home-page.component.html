@@ -1,4 +1,4 @@
-<div class="container-fluid bg-light" style="height: 100vh;">
+<div class="container-fluid bg-light" style="height: 80vh;">
     <div class="container-fluid h-100 d-flex flex-column align-items-center justify-content-center px-5 m-auto">
         <!-- barra di ricerca -->
         @if (authService.logged()) {
@@ -7,13 +7,21 @@
          </div>   
         }
 
-        <app-searchbar
-        [search]="search"/>
+        <div class="d-flex flex-column p-2 justify-content-center align-items-center mb-3" style="animation: fade-down 0.5s;">
+            <h1 class="">Benvenuto in TechX</h1>
+            <small class="text-muted mb-4">
+                Il tuo hub tecnologico, in cui potrai vendere, cercare e comprare articoli
+            </small> 
+        </div>
+
+            <app-searchbar
+            [search]="search"
+            class="w-75"/>
         
         <div class="container-fluid d-flex my-5 justify-content-center">
             <h2 class="text-primary">Categorie</h2>
-            <div class="row">
-                
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 p-2">
+
             </div>
         </div>
 
