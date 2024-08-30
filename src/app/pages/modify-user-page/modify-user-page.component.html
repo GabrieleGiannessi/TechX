@@ -32,6 +32,10 @@
                                 <span class="form-text text-danger">
                                     Lo username è già stato preso
                                 </span>
+                            }@else if (form.controls['username'].errors?.['pattern']){
+                                <span class="form-text text-danger">
+                                    Lo username non può avere spazi, e non può superare i 15 caratteri
+                                </span>
                             }
                         }
                     </div>
@@ -66,7 +70,7 @@
                         <label for="description" class="col-form-label">Descrizione</label>
                     </div>
                     <div class="col-12 col-md-6">
-                        <input type="text" id="description" formControlName="description" class="form-control rounded-pill shadow-none" aria-describedby="description">
+                        <textarea class="form-control rounded-3 shadow-none" formControlName="description" id="description" rows="3" aria-describedby="description"></textarea>
                     </div>
                     <div class="col-12 col-md-8 offset-md-4">
                         @if (form.invalid && (form.controls['description'].touched || form.controls['description'].dirty)){

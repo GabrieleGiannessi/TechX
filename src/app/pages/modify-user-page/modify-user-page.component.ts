@@ -31,13 +31,8 @@ export class ModifyUserPageComponent {
     }
   }
 
-  noWhiteSpaceValidator(c: AbstractControl): ValidationErrors | null {
-    if (!c.value) return null;  // Controlla se c.value è null o undefined
-    return c.value.trim().length === 0 ? null : { whitespace: true };
-  }
-
   form: FormGroup = new FormGroup({
-    username: new FormControl('', [Validators.required, Validators.minLength(5), this.noWhiteSpaceValidator, this.usernameIsTaken(this.firestoreService)]),
+    username: new FormControl('', [Validators.required, Validators.minLength(5),Validators.pattern('^[a-zA-Z0-9._-]{3,15}$'), this.usernameIsTaken(this.firestoreService)]),
     phoneNumber: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{10}$')]),
     description: new FormControl('', [Validators.required, Validators.minLength(30)]),
   });
@@ -55,7 +50,7 @@ export class ModifyUserPageComponent {
     //controlliamo uno per uno
     if (this.form.controls['username'].valid && username) {
       //si modifica lo username del chiamante
-      this.firestoreService.updateUsername(this.id(), username); //probabile modifica a currentUser ù
+      this.firestoreService.updateUsername(this.id(), username); //probabile modifica a currentUser
       flag = true;
     }
 
