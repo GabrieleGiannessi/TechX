@@ -1,6 +1,6 @@
 <div class="dropdown-center">
-    @if (params()['order']) {
-        <button class="position-relative btn border border-0 bg-info rounded-pill dropdown-toggle pe-4" data-bs-toggle="dropdown" > {{ params()['order'] }} 
+    @if (order()) {
+        <button class="position-relative btn border border-0 bg-info rounded-pill dropdown-toggle pe-4" data-bs-toggle="dropdown" > {{ order() }} 
             <i class="position-absolute top-50 end-0 translate-middle-y pe-2 bi bi-x-lg"
             (click)="reset()"></i> 
         </button>

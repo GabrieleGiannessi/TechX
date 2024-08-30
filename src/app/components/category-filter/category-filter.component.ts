@@ -25,7 +25,7 @@ const categories : string[] =[
 })
 export class CategoryFilterComponent {
   
-  params = model.required<Params>()
+  category = model.required<string>()
   text :  FormControl = new FormControl('', [Validators.required]); 
   
   @ViewChild('instance', { static: true }) instance!: NgbTypeahead;
@@ -51,17 +51,17 @@ onKeyUp (e : KeyboardEvent) {
   }
   
   if (e.key === "Enter"){
-    this.params.set( { ...this.params(), category : this.text.value}); 
+    this.category.set(this.text.value); 
     }
   }
 
 reset() {
-  this.params.set({ ...this.params(), category : ''});
+  this.category.set('');
   this.text.setValue('')
 }
 
 setCategory(e : NgbTypeaheadSelectItemEvent ) {
     const value =  e.item; 
-    this.params.set( { ...this.params(), category : value});
+    this.category.set(value);
   }
 }

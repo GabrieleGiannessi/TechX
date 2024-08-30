@@ -10,18 +10,18 @@ import { Params } from '@angular/router';
 })
 export class OrderFilterComponent {
   
-  params = model.required<Params>(); 
+  order = model.required<string>(); 
   
   setAsc(){
-    this.params.set({ ...this.params(), order: 'ASC' }); 
+    this.order.set('ASC'); 
   }
   
   setDesc(){
-    this.params.set({ ...this.params(), order : 'DESC' }); 
+    this.order.set('DESC'); 
   }
   
   reset() {
-    this.params.set({ ...this.params(), order : ''})
+    this.order.set(''); 
   }
 
 }

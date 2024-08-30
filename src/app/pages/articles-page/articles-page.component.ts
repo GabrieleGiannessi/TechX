@@ -25,24 +25,29 @@ export class ArticlesPageComponent {
   route = inject (ActivatedRoute)
   authService = inject (AuthService)
 
-  queryParams = signal<Params> ({
-    title : '', 
-    category : '', 
-    order : '', 
-  });
+  title = signal<string>(''); 
+  category = signal<string>(''); 
+  order = signal<string>(''); 
 
   constructor(){
-    if (this.route.snapshot.queryParams['title']) this.queryParams.set({ ...this.queryParams(), title : this.route.snapshot.queryParams['title']});
-    if (this.route.snapshot.queryParams['category'])  this.queryParams.set({ ...this.queryParams(), title : this.route.snapshot.queryParams['category']});
-    if (this.route.snapshot.queryParams['order'])  this.queryParams.set({ ...this.queryParams(), title : this.route.snapshot.queryParams['order']});
+    if (this.route.snapshot.queryParams['title']) this.title.set(this.route.snapshot.queryParams['title']);
+    if (this.route.snapshot.queryParams['category'])  this.category.set(this.route.snapshot.queryParams['category']);
+    if (this.route.snapshot.queryParams['order'])  this.order.set(this.route.snapshot.queryParams['order']);
     
     effect (() => {
-      console.log (this.queryParams())      
+      console.log (this.title())
+      console.log (this.order())
+      console.log (this.category())      
     })
   }
 
   onFormSubmit() {
-    console.log (this.queryParams())
-    this.router.navigate(['articles'], {queryParams : this.queryParams()}); 
+    console.log (this.title(), this.order(), this.category()); 
+    this.router.navigate(['articles'], {queryParams : {
+      title : this.title(),
+      category : this.category(), 
+      order : this.order(),
+    }
+    }); 
     }
 }
