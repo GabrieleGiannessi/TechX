@@ -39,7 +39,7 @@ export class NavbarComponent {
   )}
 
   signInWithGoogle (){
-    return this.authService.signInWithGoogle();
+    return this.authService.signInWithGoogle().then (() => this.router.navigateByUrl ('/home'));
   }
 
   open(content: TemplateRef<any>) {

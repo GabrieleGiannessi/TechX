@@ -1,1 +1,19 @@
-<p>searchbar works!</p>
+<div class="input-group flex-nowrap">
+    <select 
+        class="form-select input-group-text border-0 bg-secondary shadow-none rounded-start-pill text-white fs-5"
+        aria-label="home-select"
+        (change)="onSearchTypeChange($event)">
+        <option class="bg-white text-dark" value="articles">Articoli</option>
+        <option class="bg-white text-dark" value="users">Utenti</option>
+    </select>
+
+    <input class="form-control form-control-lg shadow-none border-0 rounded-end-pill"
+        type="text"
+        id="search"
+        placeholder="Esempio: Iphone 13"
+        aria-label="home-input-area"
+        [formControl]="text"
+        (keydown.enter)="this.router.navigateByUrl('/'+this.search())"
+        (keyup)="onKeyUp($event)"
+        >
+</div>

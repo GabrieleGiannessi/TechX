@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-filter-button',
@@ -9,4 +9,6 @@ import { Component } from '@angular/core';
 })
 export class FilterButtonComponent {
 
+    label = input.required<string> ();
+     
 }
