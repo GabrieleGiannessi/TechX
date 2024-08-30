@@ -54,6 +54,11 @@ export class FirestoreService {
     return updateDoc ( ref, { preferList : arrayUnion (articleID)})
   }
 
+  updateArticlePhotos (id:string, photos:string[]){
+    const ref = doc (this.firestore, 'articles', id); 
+    return updateDoc (ref, { photos : photos})
+  }
+
   deleteFromPreferList(id:string, articleID : string){
     const ref = doc (this.firestore, 'users', id);
     return updateDoc ( ref, { preferList : arrayRemove (articleID)})

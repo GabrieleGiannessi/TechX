@@ -1,5 +1,5 @@
 import { Component, inject, TemplateRef, ViewChild } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { FirestoreService } from '../../services/firestore.service';
 import { StorageService } from '../../services/storage.service';
 import { getDownloadURL } from '@angular/fire/storage';
@@ -21,7 +21,7 @@ const categories: string[] = [
 @Component({
   selector: 'app-create-new-article-page',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './create-new-article-page.component.html',
   styleUrl: './create-new-article-page.component.css'
 })
@@ -45,13 +45,14 @@ export class CreateNewArticlePageComponent {
   form: FormGroup = new FormGroup({
     title: new FormControl('', [Validators.required]),
     category: new FormControl('', [Validators.required, this.isCategoryValid]),
-    state: new FormControl('', Validators.required),
+    state: new FormControl('', ),
     description: new FormControl('', [Validators.required, Validators.minLength(30)]),
     price: new FormControl('', [Validators.required])
   })
 
   onSubmit(e: Event) {
     e.preventDefault();
+
     this.form.markAllAsTouched();
 
     if (!this.form.valid) return;
@@ -77,25 +78,27 @@ export class CreateNewArticlePageComponent {
       });
     });
 
+    if (this.authService.currentUserCredential()){
+      this.firestore.addArticle({ 
+        userID : this.authService.currentUserCredential()!.uid, 
+        title : title, 
+        category: category, 
+        price: price, 
+        photos : uploadedPhotoUrls, 
+        state : state, 
+        data : Timestamp.fromDate(new Date()),
+        description : description,
+        numPrefers : 0, 
+        preferList : []
+      })
+    }
+
     // Quando tutti gli upload sono completati
     Promise.all(uploadPromises).then(() => {
       console.log('Tutte le foto sono state caricate:', uploadedPhotoUrls);
 
       //inserisco l'articolo su firestore e do la conferma all'utente del successo dell'operazione
-      if (this.authService.currentUserCredential()){
-        this.firestore.addArticle({ 
-          userID : this.authService.currentUserCredential()!.uid, 
-          title : title, 
-          category: category, 
-          price: price, 
-          photos : uploadedPhotoUrls, 
-          state : state, 
-          data : Timestamp.fromDate(new Date()),
-          description : description,
-          numPrefers : 0, 
-          preferList : []
-        })
-      }
+      //this.firestore.updateArticlePhotos()
 
       // Mostra popup di conferma o altro
       this.open(this.content); 
