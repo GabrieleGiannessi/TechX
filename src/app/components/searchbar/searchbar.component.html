@@ -13,7 +13,9 @@
         placeholder="Esempio: Iphone 13"
         aria-label="home-input-area"
         [formControl]="text"
-        (keydown.enter)="this.router.navigateByUrl('/'+this.search())"
+        (keydown.enter)="this.router.navigate([this.search()], { queryParams : {
+            title : text.value
+        }})"
         (keyup)="onKeyUp($event)"
         >
 </div>

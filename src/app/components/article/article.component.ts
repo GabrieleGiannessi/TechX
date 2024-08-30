@@ -16,6 +16,7 @@ export class ArticleComponent {
   storage = inject (StorageService); 
 
   @ViewChild('profileImage') profileImage! : ElementRef<HTMLInputElement>;
+  @ViewChild('articleImage') articleImage! : ElementRef<HTMLInputElement>;
 
   article  = input.required<Article>(); //id dell'articolo
   title = computed (() => this.article().title);

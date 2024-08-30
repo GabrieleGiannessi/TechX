@@ -1,12 +1,20 @@
 <div class="col">
-    <div class="card h-100">
-        <div class="card-header d-flex flex-row p-1 ">
-            <img #profileImage
-            [src]=""
-            alt="profile photo">
-            <span class="text-secondary px-2"> {{ username() }}</span>
+    <div class="card bg-white border-0 h-100">
+        <div class="card-header border-0 d-flex flex-row p-1 ">
+            @if (photoURL()) {
+                <img #profileImage
+                [src]=""
+                class="p-2 img-fluid"
+                alt="profile photo">
+            }
+            @if (username()) {
+                <span class="text-secondary px-2"> {{ username() }}</span>
+            }
         </div>
-      <img [src]="" class="card-img-top" alt="article photo">
+      <img #articleImage
+      [src]="article().photos[0]"
+      class="card-img-top"
+      alt="article photo">
       <div class="card-body h-100">
         <div class="pb-2 ps-2">
             <h5 class="card-title">{{ title() }}</h5>

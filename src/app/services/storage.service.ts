@@ -11,11 +11,16 @@ export class StorageService {
 
   updateProfilePic(){}
 
-  fetchProfilePic(URL : string ){
-    return getDownloadURL(ref(this.storage, 'images/profiles/'+URL));
+  fetchProfilePic(url : string ){
+    return getDownloadURL(ref(this.storage, 'images/profiles/'+url));
     
   }
 
-  uploadArticlePhoto(){}
-  fetchArticlePhoto(){}
+  uploadArticlePhoto(){
+
+  }
+  
+  fetchArticlePhoto(url : string){
+    return getDownloadURL(ref(this.storage, 'images/articles/'+url))
+  }
 }
