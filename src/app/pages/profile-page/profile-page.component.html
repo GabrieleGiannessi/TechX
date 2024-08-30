@@ -1,1 +1,42 @@
-<p>profile-page works!</p>
+<div class="container-fluid d-flex flex-column justify-content-center align-items-center">
+    <div class="d-flex bg-white rounded-4 p-4 mt-5 w-100" style="max-width: 1200px;">
+        <div class="row p-0 m-0">
+            <div class="col-md-3 pt-0 d-flex flex-column">
+                <div class="d-flex flex-column my-3 position-relative">
+                    <img 
+                    #profileImage
+                    [src]="" 
+                    alt="Profile photo"
+                    class="img-fluid p-2"
+                    style="object-fit: contain; border-radius: 50%; width: 8rem; height: 8rem;">
+
+                    <input 
+                    hidden
+                    id="profile"
+                    type="file"
+                    accept=".png/.jpg/.png">
+                    <label for="profile">
+                        <button class="btn btn-primary position-absolute border-0 rounded-circle p-2" style="bottom: 0; right: 0;">
+                            <i class="bi bi-camera position-absolute top-50 start-50 translate-middle text-white h3"></i>
+                        </button>
+                    </label>
+                </div>
+
+                <div class="list-group list-group-flush account-settings-links">
+                    <a class="list-group-item list-group-item-action active rounded-3" data-toggle="list">Informazioni</a>
+                    <a class="list-group-item list-group-item-action rounded-3" data-toggle="list">Articoli</a>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="tab-content">
+                    <div class="tab-pane fade active show" id="informations">
+                        <!-- Content for Informations tab -->
+                    </div>
+                    <div class="tab-pane fade" id="articles">
+                        <!-- Content for Articles tab -->
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

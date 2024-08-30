@@ -12,7 +12,7 @@ export class StorageService {
   uploadProfilePic(){}
 
   fetchProfilePic(url : string ){
-    return getDownloadURL(ref(this.storage, 'images/profiles/'+url));
+    return getDownloadURL(ref(this.storage, 'profiles/'+url));
     
   }
 
@@ -20,6 +20,6 @@ export class StorageService {
   }
 
   fetchArticlePhoto(url : string){
-    return getDownloadURL(ref(this.storage, 'images/articles/'+url))
+    return getDownloadURL(ref(this.storage, 'articles/'+url))
   }
 }
