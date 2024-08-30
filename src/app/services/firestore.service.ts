@@ -41,7 +41,7 @@ export class FirestoreService {
 
   deleteFromPreferList(id:string, articleID : string){
     const ref = doc (this.firestore, 'users', id);
-    return updateDoc ( ref, { preferList : arrayRemove (id)})
+    return updateDoc ( ref, { preferList : arrayRemove (articleID)})
   }
 
   updateNumPrefersArticle(id : string, value : number){

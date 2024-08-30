@@ -21,12 +21,8 @@ export class SavedArticlePageComponent {
   authService = inject (AuthService)
 
   id = input.required<string>(); //id utente
-  user = computed (() => this.firestore.users().find (user => user.uid === this.id()))
 
-  filterList = computed (() => this.user()?.preferList); 
-
-  savedArticles = computed (() => this.firestore.articles().filter(article => this.filterList()!.some((articleID) => articleID === article.id ))); 
-   
+  savedArticles = computed (() => this.firestore.articles().filter(article => this.firestore.users().find (user => user.uid === this.id())?.preferList!.some((articleID) => articleID === article.id ))); 
 
   queryParams : Params = {
     title : '', 
