@@ -1,0 +1,40 @@
+<div class="container-fluid d-flex flex-column" style="padding-top: 3em;">
+    <!-- container per i filtri -->
+    <div class="container-fluid d-flex flex-wrap justify-content-center align-items-center gap-3 p-5">
+        <app-filter-button
+        [label]="'Prezzo'"/>
+        <app-filter-button
+        [label]="'Categoria'"/>
+        <app-filter-button
+        [label]="'Ordine'"/>
+        <button class="btn btn-primary rounded-pill border-0">Applica</button>
+    </div>
+
+    <!-- articoli-->
+     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 p-2">
+        @defer () {
+            @for (article of savedArticles(); track $index) {
+                    @if (authService.currentUserCredential()?.preferList && authService.currentUserCredential()!.preferList.includes(article.id) ) {
+                        <app-article
+                    [article]="article"
+                    [isPrefered]="true"/>
+                    }@else {
+                        <app-article
+                    [article]="article"
+                    [isPrefered]="false"/>
+                    }
+                }@empty {
+                    <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
+                    <span class="text-secondary fs-4 py-3">Nessun risultato trovato!</span>
+                    </div>
+                }
+            }
+        @loading (minimum 0.4s){
+            <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
+                <div class="spinner-border text-primary" role="status">
+                  </div>
+            </div>
+        } 
+
+     </div>
+</div>

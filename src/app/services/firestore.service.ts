@@ -20,8 +20,6 @@ export class FirestoreService {
   private article$ =  <Observable<Article[]>> collectionData (this.articlesCollection, { idField : 'id'}); 
   articles = toSignal (this.article$, { initialValue : []})
 
-  //articles
-
   addUser(user : UserInterface) {
     const ref = collection (this.firestore, 'users'); 
     return addDoc ( ref, user ); 
