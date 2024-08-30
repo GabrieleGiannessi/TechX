@@ -2,7 +2,7 @@
         <a href="/home" class="navbar-brand ps-3 text-white">
             TechX
         </a>
-    <div class="d-flex flex-row-reverse justify-content-end align-items-center pe-3">
+    <div class="d-none d-md-flex flex-row-reverse justify-content-end align-items-center pe-3">
         @if (authService.logged()){
             
             <button type="button" class="btn btn-primary text-white border-0 shadow-none rounded-pill px-2 ">Carica articolo</button>
@@ -12,7 +12,7 @@
                     <img 
                     #profileImage
                     [src]="" alt="Profile photo"
-                    class="img-fluid img-thumbnail " style="border-radius: 50%; object-fit: contain; width: 3rem; height: 3rem;">
+                    class="img-fluid img-thumbnail " style="border-radius: 50%; object-fit: cover; width: 3rem; height: 3rem;">
                 </button>
                 <ul class="dropdown-menu">
                     <li class="dropdown-item" (click)="this.router.navigateByUrl('profile/'+this.authService.currentUserCredential()?.uid)">
@@ -36,7 +36,50 @@
         <button class="btn btn-primary text-white border-0 shadow-none rounded-pill me-4" (click)="open(content)">
 	        Iscriviti - Accedi
         </button>
-        }   
+        }
+        
+        <div class="d-sm-flex d-md-none flex-row-reverse justify-content-end align-items-center">
+            @if (authService.logged()){
+
+                <button class="btn dropdown-toggle p-2 border-0 shadow-none " data-bs-toggle="dropdown" type="button" aria-expanded="false">
+                    <i class="bi bi-three-dots text-white"></i>
+                </button>
+                
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item">
+                            Carica Articolo
+                        </li>
+                        <li class="dropdown-item">
+                           Notifiche 
+                        </li>
+                        <li class="dropdown-item" (click)="this.router.navigateByUrl('profile/'+this.authService.currentUserCredential()?.uid)">
+                            Profilo
+                        </li>
+                        <li class="dropdown-divider"></li>
+                        <li class="dropdown-item" (click)="this.router.navigateByUrl('saved/'+this.authService.currentUserCredential()?.uid)">
+                            Articoli preferiti
+                        </li>
+                        <li class="dropdown-item" (click)="this.router.navigateByUrl('chats/'+this.authService.currentUserCredential()?.uid)">
+                            Messaggi
+                        </li>
+                        <li class="dropdown-item text-danger" (click)="this.authService.logout()">
+                            Esci 
+                        </li>
+                    </ul>
+                
+    
+            }@else {
+                <button class="btn dropdown-toggle p-2 border-0 shadow-none " data-bs-toggle="dropdown" type="button" aria-expanded="false">
+                    <i class="bi bi-three-dots"></i>
+                </button>
+
+            
+                <ul class="dropdown-menu">
+                    <li class="dropdown-item text-primary" (click)="open(content)" >Iscriviti - Accedi </li>
+                </ul>
+            
+            }
+        </div>
     </div>
 </div>
 

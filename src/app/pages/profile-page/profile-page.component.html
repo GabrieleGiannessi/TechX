@@ -3,30 +3,33 @@
         <div class="row w-100 p-0 m-0">
             <div class="col-3 d-flex flex-column">
                 <div class="d-flex flex-column justify-content-center align-items-center my-3">
-                    <img 
-                    #profileImage
-                    [src]="" 
-                    alt="Profile photo"
-                    class="img-fluid p-2"
-                    style="object-fit: contain; border-radius: 50%; width: 16rem; height: 16rem;">
-
-                    @if (authService.currentUserCredential()?.uid === user()?.uid){
-                        <input 
-                        hidden
-                        id="profile"
-                        type="file"
-                        accept=".png/.jpg/.png">
-    
-                        <div class="position-relative">
-                            <label for="profile" class="position-absolute bottom-0 start-50 translate-middle-x" >
-                                <button class="btn btn-primary border-0 rounded-circle ">
+                    <div class="d-flex flex-column justify-content-center align-items-center my-3 position-relative">
+                        <img 
+                            #profileImage
+                            [src]="" 
+                            alt="Profile photo"
+                            class="img-fluid p-2"
+                            style="object-fit: cover; border-radius: 50%; width: 16rem; height: 16rem;">
+                    
+                        @if (authService.currentUserCredential()?.uid === user()?.uid) {
+                            <!-- Input di tipo file nascosto ma presente -->
+                            <input 
+                            type="file"
+                            id="profile"
+                                (change)="uploadPhoto()"
+                                accept=".png,.jpg,.jpeg"
+                                style="position: absolute; opacity: 0;">
+                    
+                            <!-- Pulsante sopra l'immagine -->
+                            <label for="profile" class="position-absolute bottom-0 start-50 translate-middle-x" style="cursor: pointer;">
+                                <button class="btn btn-primary border-0 rounded-circle">
                                     <i class="bi bi-camera text-white h4"></i>
                                 </button>
                             </label>
-                        </div>
-                    }
-
-                    <span class="text-muted fs-4"> {{ user()?.username }} </span>
+                        }
+                    
+                        <span class="text-muted fs-4"> {{ user()?.username }} </span>
+                    </div>
                 </div>
 
                 <div class="list-group list-group-flush account-settings-links">
@@ -126,11 +129,11 @@
                                 }@empty {             
                                     @if (authService.currentUserCredential()?.uid === user()?.uid){ 
                                         <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
-                                            <span class="text-secondary fs-4 py-3">Non hai caricato nessun articolo!</span>
+                                            <span class="text-secondary fs-5 py-3">Non hai caricato nessun articolo!</span>
                                         </div>
                                     }@else {
                                         <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
-                                            <span class="text-secondary fs-4 py-3">L'utente non ha caricato nessun articolo!</span>
+                                            <span class="text-secondary fs-5 py-3">L'utente non ha caricato nessun articolo!</span>
                                         </div>
                                     }
                                 }

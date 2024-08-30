@@ -36,7 +36,6 @@ export class ProfilePageComponent {
     effect (() => {
       if (this.user()){
         if (this.user()?.photoURL){
-          console.log (this.user()?.photoURL)
           this.storage.fetchProfilePic(this.user()!.photoURL).then((url) => {
             if (this.profileImage && this.profileImage.nativeElement){
               this.profileImage.nativeElement.src = url;
@@ -47,6 +46,9 @@ export class ProfilePageComponent {
     })
   }
 
+  uploadPhoto(){
+    const input = <HTMLInputElement> document.querySelector('#profile'); 
+    this.storage.uploadProfilePic(input); 
+  }
 
-  
 }
