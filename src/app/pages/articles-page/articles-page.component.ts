@@ -7,13 +7,14 @@ import { AuthService } from '../../services/auth.service';
 import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 import { debounceTime, distinctUntilChanged, filter, map, merge, Observable, OperatorFunction, Subject } from 'rxjs';
 import { CategoryFilterComponent } from "../../components/category-filter/category-filter.component";
+import { OrderFilterComponent } from "../../components/order-filter/order-filter.component";
 
 
 
 @Component({
   selector: 'app-articles-page',
   standalone: true,
-  imports: [FilterButtonComponent, ArticleComponent, CategoryFilterComponent],
+  imports: [FilterButtonComponent, ArticleComponent, CategoryFilterComponent, OrderFilterComponent],
   templateUrl: './articles-page.component.html',
   styleUrl: './articles-page.component.css'
 })
@@ -30,15 +31,19 @@ export class ArticlesPageComponent {
     order : '', 
   }
 
-  category = 'categoria'; 
-  order = 'ordine'; 
-  prezzo = 'price'; 
-
   constructor(){
     if (this.route.snapshot.queryParams['title']) this.queryParams['title'] = this.route.snapshot.queryParams['title'];
     if (this.route.snapshot.queryParams['category']) this.queryParams['category'] = this.route.snapshot.queryParams['category'];
     if (this.route.snapshot.queryParams['order']) this.queryParams['order'] = this.route.snapshot.queryParams['order'];
   }
+
+  onFormSubmit(e: MouseEvent) {
+    e.preventDefault();
+
+    
+    this.router.navigate(['articles'], {queryParams : this.queryParams}); 
+  
+    }
 
 
 

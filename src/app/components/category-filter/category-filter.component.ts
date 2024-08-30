@@ -1,6 +1,6 @@
 import { Component, model, ViewChild } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 import { debounceTime, distinctUntilChanged, filter, map, merge, Observable, OperatorFunction, Subject } from 'rxjs';
 
 
@@ -53,4 +53,9 @@ export class CategoryFilterComponent {
       this.label.set(this.text.value); 
     }
   }
+
+  setCategory(e : NgbTypeaheadSelectItemEvent ) {
+    const value =  e.item; 
+    this.label.set (value)
+    }
 }

@@ -1,5 +1,11 @@
 <div class="dropdown-center">
-    <button class="btn border border-primary bg-white rounded-pill dropdown-toggle" data-bs-toggle="dropdown" > {{ label() }} </button>
+    @if ( label() ) {
+        <button class="position-relative btn border border-0 bg-info rounded-pill dropdown-toggle pe-4" data-bs-toggle="dropdown" > {{ label() }}
+            <i class="position-absolute top-50 end-0 translate-middle-y pe-2 bi bi-x-lg"
+            (click)="this.label.set(''); this.text.setValue('')"></i>  </button>
+    }@else {
+        <button class="btn border border-primary bg-white rounded-pill dropdown-toggle" data-bs-toggle="dropdown" > Categoria </button>
+    }
         <ul class="dropdown-menu">
             <li class="dropdown-item">
                 <label for="typeahead-focus text-muted">Immetti la categoria:</label>
@@ -11,6 +17,7 @@
                         (focus)="focus$.next($any($event).target.value)"
                         (click)="click$.next($any($event).target.value)"
                         #instance="ngbTypeahead"
+                        (selectItem)="setCategory($event)"
                         [formControl]="text"
                         (keyup)="onKeyUp($event)"
                     />

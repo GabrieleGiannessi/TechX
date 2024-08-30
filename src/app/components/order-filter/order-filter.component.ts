@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, model } from '@angular/core';
 
 @Component({
   selector: 'app-order-filter',
@@ -8,5 +8,16 @@ import { Component } from '@angular/core';
   styleUrl: './order-filter.component.css'
 })
 export class OrderFilterComponent {
+
+  label = model.required<string>(); 
+
+  setAsc(){
+    this.label.set('ASC'); 
+  }
+
+  setDesc(){
+    this.label.set('DESC'); 
+  }
+
 
 }
