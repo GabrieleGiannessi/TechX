@@ -41,13 +41,11 @@
                     [isPrefered]="false"/>
                 }
             }@empty {
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 p-2" style="animation: fade-up 0.5s;">
                     <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
                         <span class="text-secondary fs-4 py-3">Nessun risultato trovato!</span>
                         <span class="text-secondary">Possiamo proporti i seguenti articoli</span>
                         <i class="bi bi-arrow-down-circle-fill text-primary h3"></i>
                     </div>
-                </div>
             }
         </div>
         }@loading (minimum 0.4s){

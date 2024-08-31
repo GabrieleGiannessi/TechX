@@ -5,11 +5,18 @@
             @for (user of userList(); track $index) {
                 <app-user
                 [user]="user"/>
+            }@empty {
+                    <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
+                        <span class="text-secondary fs-4 py-3">Nessun risultato trovato!</span>
+                    </div>
             }
         </div>
-    }
-            
-
-
-
+    }@loading (minimum 0.4s){
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 p-2">
+            <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
+                <div class="spinner-border text-primary" role="status">
+                  </div>
+            </div>
+        </div>
+    } 
 </div>
