@@ -143,6 +143,8 @@ export class CreateNewArticlePageComponent {
       });
     });
 
+    let articleID = ''; //id dell'articolo generato da firebase
+
     if (this.authService.currentUserCredential()) {
       this.firestore.addArticle({
         userID: this.authService.currentUserCredential()!.uid,
@@ -153,8 +155,9 @@ export class CreateNewArticlePageComponent {
         state: state,
         data: Timestamp.fromDate(new Date()),
         description: description,
-        numPrefers: 0,
-        preferList: []
+        numPrefers: 0
+      }).then ((docRef) => {
+        articleID = docRef.id; 
       })
     }
 
@@ -163,7 +166,7 @@ export class CreateNewArticlePageComponent {
       console.log('Tutte le foto sono state caricate:', uploadedPhotoUrls);
 
       //inserisco l'articolo su firestore e do la conferma all'utente del successo dell'operazione
-      //this.firestore.updateArticlePhotos()
+      this.firestore.updateArticlePhotos(articleID, uploadedPhotoUrls);
 
       // Mostra popup di conferma o altro
       this.open(this.content);

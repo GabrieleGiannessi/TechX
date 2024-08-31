@@ -30,7 +30,7 @@ export class ProfilePageComponent {
   userArticles = computed (() => {
     if (this.state()) return this.firestore.articles().filter( (article) => article.userID === this.id()); 
     return this.firestore.articles().filter( (article) => article.userID === this.id() && article.state === this.state());
-  } )
+  })
   
   constructor(){
     effect (() => {

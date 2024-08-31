@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, computed, effect, inject, input } from '@angular/core';
 import { NavbarComponent } from "../../components/navbar/navbar.component";
+import { FirestoreService } from '../../services/firestore.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-article-page',
@@ -10,4 +12,15 @@ import { NavbarComponent } from "../../components/navbar/navbar.component";
 })
 export class ArticlePageComponent {
 
+  firestore = inject (FirestoreService); 
+  authService = inject (AuthService); 
+
+  id = input.required<string>(); 
+
+  article = computed (() => this.firestore.articles().find (article => article.id === this.id())); 
+  articlePhotos = computed (() => this.article()?.photos.splice (0, 1)); 
+
+  constructor (){
+    effect (() => console.log (this.article())) 
+  }
 }

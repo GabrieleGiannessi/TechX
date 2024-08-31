@@ -83,5 +83,4 @@ export interface Article{
   data : Timestamp
   description : string,
   numPrefers : number, 
-  preferList : string[]
 }
