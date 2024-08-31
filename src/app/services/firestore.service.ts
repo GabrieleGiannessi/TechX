@@ -1,9 +1,8 @@
 import { inject, Injectable } from '@angular/core';
-import { addDoc, arrayRemove, arrayUnion, collectionData, doc, Firestore, updateDoc } from '@angular/fire/firestore';
-import { collection, CollectionReference, Timestamp } from 'firebase/firestore';
-import { UserInterface } from './auth.service';
+import {  collection, CollectionReference, Timestamp, addDoc, arrayRemove, arrayUnion, collectionData, doc, Firestore, updateDoc } from '@angular/fire/firestore';
+import { AuthService, UserInterface } from './auth.service';
 import { toSignal } from '@angular/core/rxjs-interop'
-import { Observable } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +14,7 @@ export class FirestoreService {
   usersCollection = <CollectionReference<UserInterface>> collection (this.firestore, 'users'); 
   private users$ = <Observable<UserInterface[]>> collectionData (this.usersCollection, { idField : 'uid'}); 
   users = toSignal (this.users$, { initialValue : []})
-
+  
   articlesCollection = <CollectionReference<Article>> collection (this.firestore, 'articles'); 
   private article$ =  <Observable<Article[]>> collectionData (this.articlesCollection, { idField : 'id'}); 
   articles = toSignal (this.article$, { initialValue : []})
