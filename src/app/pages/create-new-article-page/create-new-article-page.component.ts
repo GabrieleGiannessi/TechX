@@ -1,12 +1,14 @@
 import { Component, inject, TemplateRef, ViewChild } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { FirestoreService } from '../../services/firestore.service';
 import { StorageService } from '../../services/storage.service';
 import { getDownloadURL } from '@angular/fire/storage';
 import { Timestamp } from 'firebase/firestore';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal, NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
+import { debounceTime, distinctUntilChanged, filter, map, merge, Observable, OperatorFunction, Subject } from 'rxjs';
+
 
 const categories: string[] = [
   "PC e componenti",
@@ -18,10 +20,11 @@ const categories: string[] = [
   "Tablet",
   "Dispositivi IOT",
 ];
+
 @Component({
   selector: 'app-create-new-article-page',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgbTypeahead, FormsModule],
   templateUrl: './create-new-article-page.component.html',
   styleUrl: './create-new-article-page.component.css'
 })
@@ -29,11 +32,16 @@ export class CreateNewArticlePageComponent {
 
   firestore = inject(FirestoreService);
   storage = inject(StorageService);
-  authService = inject (AuthService); 
-  router = inject(Router); 
+  authService = inject(AuthService);
+  router = inject(Router);
   modalService = inject(NgbModal);
   closeResult = '';
 
+
+  focus$ = new Subject<string>();
+  click$ = new Subject<string>();
+
+  @ViewChild('instance', { static: true }) instance!: NgbTypeahead;
   @ViewChild('content') content!: TemplateRef<any>;
 
 
@@ -45,36 +53,67 @@ export class CreateNewArticlePageComponent {
   form: FormGroup = new FormGroup({
     title: new FormControl('', [Validators.required]),
     category: new FormControl('', [Validators.required, this.isCategoryValid]),
-    state: new FormControl('', ),
+    state: new FormControl('',),
     description: new FormControl('', [Validators.required, Validators.minLength(30)]),
     price: new FormControl('', [Validators.required])
   })
 
-   showPreview() {
+  search: OperatorFunction<string, readonly string[]> = (text$: Observable<string>) => {
+    const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
+    const clicksWithClosedPopup$ = this.click$.pipe(filter(() => !this.instance.isPopupOpen()));
+    const inputFocus$ = this.focus$;
+
+    return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
+      map((term) =>
+        (term === '' ? categories : categories.filter((v) => v.toLowerCase().indexOf(term.toLowerCase()) > -1)).slice(0, 10),
+      ),
+    );
+  };
+
+  onKeyUp(e: KeyboardEvent) {
+    if (e.key === "escape") {
+      this.form.controls['category'].setValue('');
+    }
+
+    if (e.key === "Enter") {
+      this.form.controls['category'].setValue(this.form.controls['category'].value);
+    }
+  }
+
+  reset() {
+    this.form.controls['category'].setValue('');
+  }
+
+  setCategory(e: NgbTypeaheadSelectItemEvent) {
+    const value = e.item;
+    this.form.controls['category'].setValue(value);
+  }
+
+  showPreview() {
     let fileInput = <HTMLInputElement>document.querySelector('#article-photos')!;
     let imageContainer = document.querySelector('#images')!;
     let numOfFile = <HTMLElement>document.querySelector('#num-of-files')!;
-  
+
     imageContainer.innerHTML = '';
     if (fileInput.files!.length > 0) {
       numOfFile.textContent = `${fileInput.files!.length} file selezionati`;
-    }else numOfFile.textContent = 'Nessun file selezionato';
-  
+    } else numOfFile.textContent = 'Nessun file selezionato';
+
     const filesArray = Array.from(fileInput.files!);
-  
+
     for (const file of filesArray) {
       let reader = new FileReader();
       let figure = document.createElement('figure');
       reader.onload = () => {
         let img = document.createElement('img');
-        img.setAttribute('src', reader.result as string); 
+        img.setAttribute('src', reader.result as string);
         figure.appendChild(img);
       }
       imageContainer.appendChild(figure);
       reader.readAsDataURL(file);
     }
   }
-  
+
 
   onSubmit(e: Event) {
     e.preventDefault();
@@ -85,7 +124,7 @@ export class CreateNewArticlePageComponent {
 
     // Aggiungiamo le foto dell'articolo allo storage
 
-    const { state, title, description, price, category } = this.form.value; 
+    const { state, title, description, price, category } = this.form.value;
 
     const element = <HTMLInputElement>document.querySelector('#article-photos');
     const input = element.files ? element.files : null;
@@ -104,18 +143,18 @@ export class CreateNewArticlePageComponent {
       });
     });
 
-    if (this.authService.currentUserCredential()){
-      this.firestore.addArticle({ 
-        userID : this.authService.currentUserCredential()!.uid, 
-        title : title, 
-        category: category, 
-        price: price, 
-        photos : uploadedPhotoUrls, 
-        state : state, 
-        data : Timestamp.fromDate(new Date()),
-        description : description,
-        numPrefers : 0, 
-        preferList : []
+    if (this.authService.currentUserCredential()) {
+      this.firestore.addArticle({
+        userID: this.authService.currentUserCredential()!.uid,
+        title: title,
+        category: category,
+        price: price,
+        photos: uploadedPhotoUrls,
+        state: state,
+        data: Timestamp.fromDate(new Date()),
+        description: description,
+        numPrefers: 0,
+        preferList: []
       })
     }
 
@@ -127,7 +166,7 @@ export class CreateNewArticlePageComponent {
       //this.firestore.updateArticlePhotos()
 
       // Mostra popup di conferma o altro
-      this.open(this.content); 
+      this.open(this.content);
 
     }).catch(error => {
       console.error('Errore nel caricamento delle foto:', error);

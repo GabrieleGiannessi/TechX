@@ -1,6 +1,7 @@
 <div class="col mb-3">
-    <div class="card p-2 bg-white border-0 h-100">
-        <div class="card-header bg-white border-0 d-flex flex-row align-items-center p-1 ">
+    <div class="card p-2 bg-white border-0">
+        <div class="card-header bg-white border-0 d-flex flex-row align-items-center p-1"
+        (click)="router.navigateByUrl('profile/'+user()?.uid)">
             <img #profileImage 
             [src]="" 
             class="p-2 img-fluid"

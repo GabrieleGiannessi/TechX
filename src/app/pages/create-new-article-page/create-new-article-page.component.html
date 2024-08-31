@@ -32,7 +32,7 @@
                      placeholder="Esempio: stampante 3D">
                      @if (form.invalid && (form.controls['title'].touched || form.controls['title'].dirty)){
                         @if (form.controls['title'].errors?.['required']) {
-                            <span class="form-text text-danger">
+                            <span class="form-text text-danger p-2">
                                 Inserisci un titolo
                             </span>
                         }
@@ -40,19 +40,26 @@
                  </div>
 
                  <div class="d-flex flex-row align-items-center mb-5 w-100">
-                    <label for="category" class="form-label d-flex justify-content-center align-items-center pe-3">Categoria</label>
-                    <input type="text"
-                    class="form-control rounded-pill shadow-none"
-                    formControlName="category"
-                    id="category"
-                    placeholder="Esempio: Droni">
+                    <label for="typeahead-focus form-label d-flex justify-content-center align-items-center pe-3">Categoria</label>
+                    <input
+                        id="typeahead-focus"
+                        type="text"
+                        class="form-control shadow-none rounded-pill"
+                        [ngbTypeahead]="search"
+                        (focus)="focus$.next($any($event).target.value)"
+                        (click)="click$.next($any($event).target.value)"
+                        #instance="ngbTypeahead"
+                        (selectItem)="setCategory($event)"
+                        formControlName="category"
+                        (keyup)="onKeyUp($event)"
+                    />
                     @if (form.invalid && (form.controls['category'].touched || form.controls['category'].dirty)){
                         @if (form.controls['category'].errors?.['required']) {
-                            <span class="form-text text-danger">
+                            <span class="form-text text-danger p-2">
                                 Inserisci una categoria
                             </span>
                         }@else if (form.controls['category'].errors?.['notvalid']) {
-                            <span class="form-text text-danger">
+                            <span class="form-text text-danger p-2">
                                 Categoria non valida
                             </span>
                         }
@@ -68,7 +75,7 @@
                     placeholder="100">
                     @if (form.invalid && (form.controls['price'].touched || form.controls['price'].dirty)){
                         @if (form.controls['price'].errors?.['required']) {
-                            <span class="form-text text-danger">
+                            <span class="form-text text-danger p-2">
                                 Inserisci il prezzo dell'articolo
                             </span>
                         }
@@ -81,15 +88,15 @@
                     id="state"
                     formControlName="state"
                     class="form-select rounded-pill text-muted shadow-none">
-                    <option class="bg-white text-dark" value="">Ottimo - come nuovo</option>
-                    <option class="bg-white text-dark" value="">Buono</option>
-                    <option class="bg-white text-dark" value="">Discreto</option>
-                    <option class="bg-white text-dark" value="">Accettabile</option>  
+                    <option class="bg-white text-dark" value="ottimo">Ottimo - come nuovo</option>
+                    <option class="bg-white text-dark" value="buono">Buono</option>
+                    <option class="bg-white text-dark" value="discreto">Discreto</option>
+                    <option class="bg-white text-dark" value="accettabile">Accettabile</option>  
                 </select>
                 
                 @if (form.invalid && (form.controls['state'].touched || form.controls['state'].dirty)){
                     @if (form.controls['state'].errors?.['required']) {
-                        <span class="form-text text-danger">
+                        <span class="form-text text-danger p-2">
                             Aggiungere uno stato all'articolo
                         </span>
                     }
@@ -107,11 +114,11 @@
                     
                     @if (form.invalid && (form.controls['description'].touched || form.controls['description'].dirty)){
                         @if (form.controls['description'].errors?.['required']) {
-                            <span class="form-text text-danger">
+                            <span class="form-text text-danger p-2">
                                 Inserisci una descrizione
                             </span>
                         }@else if (form.controls['description'].errors?.['minlength']) {
-                            <span class="form-text text-danger">
+                            <span class="form-text text-danger p-2">
                                 La descrizione deve essere di almeno 30 caratteri
                             </span>
                         }
