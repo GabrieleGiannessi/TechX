@@ -4,6 +4,35 @@ body {
     background-color: var(--bs-light) !important;
 }
 
+#images {
+    align-items: flex-start; /* Allinea le immagini in alto */
+    gap: 1rem; /* Spazio tra le figure */
+    max-height: 80vh; /* Altezza massima del riquadro */
+    padding: 1rem;
+    overflow-y : auto; 
+    width: 100%;
+    box-sizing: border-box; /* Include padding e bordo nelle dimensioni */
+}
+
+#images figure {
+    width: 45%; /* Le figure occupano il 45% della larghezza del contenitore */
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center; /* Centra le immagini all'interno delle figure */
+    align-items: center; /* Allinea le immagini verticalmente al centro */
+    background-color: #f0f0f0; /* Sfondo grigio chiaro per le figure */
+    border-radius: 1em;
+}
+
+#images img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover; /* Ritaglia l'immagine mantenendo le proporzioni */
+    display: block;
+}
+
+
 @keyframes fade-down {
     0%{
         opacity: 0;

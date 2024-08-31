@@ -1,28 +1,20 @@
 <div class="col mb-3">
     <div class="card p-2 bg-white border-0 h-100">
-        <div class="card-header bg-white border-0 d-flex flex-row p-1 ">
-            <img #profileImage [src]="" class="p-2 img-fluid" style="object-fit: contain; width: 2rem; height: 2rem;"
-                alt="profile photo">
+        <div class="card-header bg-white border-0 d-flex flex-row align-items-center p-1 ">
+            <img #profileImage 
+            [src]="" 
+            class="p-2 img-fluid"
+            style="object-fit: cover; border-radius: 50%; width: 3rem; height: 3rem;"
+            alt="profile photo">
             <span class="text-secondary px-2"> {{ this.user()?.username }}</span>
         </div>
-        <div 
-        class="position-relative">
-
+    
+        <div class="image-wrapper">
             <img #articleImage [src]="article().photos[0]" class="card-img-top" alt="article photo"
-                style="object-fit: contain;"
+                style="object-fit: cover; width: 100%; height: 100%;"
                 (click)="this.router.navigateByUrl('article/'+article().id)">
-            <button class="position-absolute bottom-0 end-0 bg-light rounded-circle border-0 me-2 mb-2 p-2 "
-            (click)="setPrefer()">
-            @if (prefer()) {
-                <i id="prefers" class="bi bi-suit-heart-fill text-danger"></i>
-            }@else {
-                <i id="prefers" class="bi bi-suit-heart-fill text-secondary"></i>
-            }
-                @if (article().numPrefers) {
-                <span class="text-secondary"> {{ article().numPrefers }}</span>
-                }
-            </button>
         </div>
+    
         <div class="card-body h-100">
             <div class="pb-2 ps-2">
                 <h5 class="card-title">{{ title() }}</h5>
@@ -30,7 +22,7 @@
             </div>
             <p class="card-text p-2">{{ description() }}</p>
         </div>
-    </div>
+    </div>    
 </div>
 
 <ng-template #content let-modal>

@@ -22,8 +22,8 @@
     </div>
 
     <!-- articoli-->
-     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 p-2">
-        @defer () {
+    @defer () {
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 p-2" style="animation: fade-up 0.5s;">
             @for (article of this.firestore.articles(); track $index) {
                 @if (authService.logged()) {
                     @if (authService.currentUserCredential()?.preferList && authService.currentUserCredential()!.preferList.includes(article.id!) ) {
@@ -41,17 +41,21 @@
                     [isPrefered]="false"/>
                 }
             }@empty {
-                <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
-                <span class="text-secondary fs-4 py-3">Nessun risultato trovato!</span>
-                <span class="text-secondary">Possiamo proporti i seguenti articoli</span>
-                <i class="bi bi-arrow-down-circle-fill text-primary h3"></i>
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 p-2" style="animation: fade-up 0.5s;">
+                    <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
+                        <span class="text-secondary fs-4 py-3">Nessun risultato trovato!</span>
+                        <span class="text-secondary">Possiamo proporti i seguenti articoli</span>
+                        <i class="bi bi-arrow-down-circle-fill text-primary h3"></i>
+                    </div>
                 </div>
             }
+        </div>
         }@loading (minimum 0.4s){
-            <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
-                <div class="spinner-border text-primary" role="status">
-                  </div>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 p-2">
+                <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
+                    <div class="spinner-border text-primary" role="status">
+                      </div>
+                </div>
             </div>
         } 
-     </div>
 </div>

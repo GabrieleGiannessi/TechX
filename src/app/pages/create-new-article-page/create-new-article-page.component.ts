@@ -50,6 +50,32 @@ export class CreateNewArticlePageComponent {
     price: new FormControl('', [Validators.required])
   })
 
+   showPreview() {
+    let fileInput = <HTMLInputElement>document.querySelector('#article-photos')!;
+    let imageContainer = document.querySelector('#images')!;
+    let numOfFile = <HTMLElement>document.querySelector('#num-of-files')!;
+  
+    imageContainer.innerHTML = '';
+    if (fileInput.files!.length > 0) {
+      numOfFile.textContent = `${fileInput.files!.length} file selezionati`;
+    }else numOfFile.textContent = 'Nessun file selezionato';
+  
+    const filesArray = Array.from(fileInput.files!);
+  
+    for (const file of filesArray) {
+      let reader = new FileReader();
+      let figure = document.createElement('figure');
+      reader.onload = () => {
+        let img = document.createElement('img');
+        img.setAttribute('src', reader.result as string); 
+        figure.appendChild(img);
+      }
+      imageContainer.appendChild(figure);
+      reader.readAsDataURL(file);
+    }
+  }
+  
+
   onSubmit(e: Event) {
     e.preventDefault();
 

@@ -1,19 +1,23 @@
 <div class="container-fluid d-flex justify-content-center align-items-center" style="padding-top: 6em; padding-bottom: 3em;">
     <div class="d-flex flex-column justify-content-center align-items-center rounded-4 bg-white p-4 w-75">
-        <!-- sezione immagini -->
-        <div class="position-relative d-flex flex-column align-items-center justify-content-center border rounded-4 p-3 w-75">
+        <div class="d-flex flex-column align-items-center justify-content-center border rounded-4 p-3 w-75">
             <!-- Input file nascosto -->
             <input 
             multiple
             type="file"
             id="article-photos"
-            accept=".jpeg,.jpg,.png,"
+            (change)="showPreview()"
+            accept="image/jpeg,image/jpg,image/png,"
             class="d-none">
-
-            <label for="article-photos" class="d-flex flex-column align-items-center cursor-pointer" style="height: calc(20vh);">
-                <i class="bi bi-cloud-arrow-down-fill h2"></i>
-                <span class="text-muted p-1">Inserisci delle foto che riguardano l'articolo</span>
+        
+            <label for="article-photos" class="d-flex flex-column align-items-center cursor-pointer">
+                <i class="bi bi-cloud-arrow-down-fill h1"></i>
+                <span class="text-muted">Inserisci delle foto che riguardano l'articolo</span>
             </label>
+            <p id="num-of-files" class="text-primary">Nessun file selezionato</p>
+            <div id="images" class = "position-relative d-flex flex-wrap justify-content-evenly gap-3 p-3 w-100 m-auto">
+
+            </div>
         </div>
         
         <!-- campi form -->
