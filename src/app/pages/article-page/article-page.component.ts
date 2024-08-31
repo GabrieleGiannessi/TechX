@@ -18,9 +18,13 @@ export class ArticlePageComponent {
   id = input.required<string>(); 
 
   article = computed (() => this.firestore.articles().find (article => article.id === this.id())); 
-  articlePhotos = computed (() => this.article()?.photos.splice (0, 1)); 
+  articlePhotos = computed (() => this.article()?.photos.slice (1)); 
 
   constructor (){
-    effect (() => console.log (this.article())) 
+    effect (() =>{
+      console.log (this.article())
+      console.log (this.articlePhotos())
+    } ) 
+
   }
 }
