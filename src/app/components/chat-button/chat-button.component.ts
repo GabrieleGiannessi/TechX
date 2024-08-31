@@ -1,13 +1,15 @@
 import { Component, effect, ElementRef, inject, input, Output, ViewChild, EventEmitter } from '@angular/core';
 import { Chat } from '../../services/chat.service';
 import { StorageService } from '../../services/storage.service';
+import { DateDisplayPipe } from "../../pipes/date-display.pipe";
 
 @Component({
   selector: 'app-chat-button',
   standalone: true,
-  imports: [],
+  imports: [DateDisplayPipe],
   templateUrl: './chat-button.component.html',
-  styleUrl: './chat-button.component.css'
+  styleUrl: './chat-button.component.css',
+  providers: [DateDisplayPipe]
 })
 export class ChatButtonComponent {
 

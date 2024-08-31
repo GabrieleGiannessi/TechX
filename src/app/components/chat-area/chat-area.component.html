@@ -1,5 +1,7 @@
-<div class="container-fluid d-flex flex-column bg-light" style="height: calc(70vh); overflow: auto">
+<div class="chat-area container-fluid d-flex flex-column bg-light" style="height: calc(70vh); overflow: auto">
+    <!-- message container --> 
     @for (message of chatMessages$() | async ; track $index) {
-        {{ message.text }}
+        <app-chat-message
+        [message]="message"/>
     }
 </div>

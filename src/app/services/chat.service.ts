@@ -70,7 +70,7 @@ export class ChatService {
 export interface Chat{
   id:string; 
   lastMessage?: string;
-  lastMessageDate?: Timestamp; 
+  lastMessageDate: Timestamp; 
   userIDs :  string[]; 
   users : UserInterface[]; 
 
