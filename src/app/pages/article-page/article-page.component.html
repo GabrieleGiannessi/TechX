@@ -1,34 +1,157 @@
 <div class="container-fluid">
-    <div class="d-flex justify-content-center px-5" style="padding-top: 4em;">
-        <div class="d-flex flex-column justify-content-center rounded-4 bg-white">
-           <!-- Carosello foto -->
-           @if (article()) {
-            <div id="article-carousel" class="carousel slide carousel-fade">
-                <div class="carousel-inner">
-                    <!-- Foto principali -->
-                    <div class="carousel-item active">
-                        <img [src]="article()!.photos[0]" class="d-block w-100" alt="Prima foto">
-                    </div>
-                    <!-- Foto aggiuntive -->
-                    @if (articlePhotos()) {
+    <div class="d-flex justify-content-center px-5" style="padding-top: 4em; padding-bottom: 3em;">
+        <div class="d-flex flex-column justify-content-center align-content-center rounded-4 bg-white w-75">
+            <!-- Carosello foto -->
+            <div class="container-fluid d-flex justify-content-center align-content-center p-5">
+                @if (article()) {
+                <div id="article-carousel" class="carousel slide">
+                    <div class="carousel-inner">
+                        <!-- Foto principali -->
+                        <div class="carousel-item active">
+                            <img [src]="article()!.photos[0]" class="d-block w-100 carousel-img" alt="Prima foto">
+                        </div>
+                        <!-- Foto aggiuntive -->
+                        @if (articlePhotos()) {
                         @for (item of articlePhotos(); track $index) {
-                            <div class="carousel-item">
-                                <img [src]="item" class="d-block w-100" alt="Foto">
-                            </div>
+                        <div class="carousel-item">
+                            <img [src]="item" class="d-block w-100 carousel-img" alt="Foto">
+                        </div>
                         }
+                        }
+                    </div>
+                    <!-- Controlli del carosello -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#article-carousel"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Precedente</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#article-carousel"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Successivo</span>
+                    </button>
+                </div>
+                }
+            </div>
+
+            <!-- informazioni articolo-->
+            <div class="container-fluid d-flex flex-column justify-content-center p-3">
+
+                <!-- bottoni articolo -->
+                <div class="d-flex w-100 justify-content-center align-items-center">
+                    <div class="d-flex flex-wrap justify-content-center align-items-center  gap-2 p-3 w-75">
+                        @if (user()?.uid === authService.currentUserCredential()?.uid){
+                        <button class="btn btn-outline-primary rounded-pill border-0">
+                            Segna come prenotato
+                        </button>
+                        <button class="btn btn-outline-primary rounded-pill border-0">
+                            Segna come venduto
+                        </button>
+                        <button class="btn btn-outline-danger rounded-pill border-0">
+                            Elimina articolo
+                        </button>
+                        }@else {
+                        <button class="btn btn-outline-primary rounded-pill border-0">
+                            Compra articolo
+                        </button>
+                        }
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between p-2 mx-3 my-3">
+                    <span class="text-secondary">
+                        TITOLO:
+                    </span>
+                    @if (article()?.title) {
+                    <span class="text-muted"> {{ article()!.title }}</span>
+                    }@else {
+                    <span class="text-muted"> - </span>
                     }
                 </div>
-                <!-- Controlli del carosello -->
-                <button class="carousel-control-prev" type="button" data-bs-target="#article-carousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Precedente</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#article-carousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Successivo</span>
-                </button>
+
+                <div class="d-flex justify-content-between p-2 mx-3 my-3">
+                    <span class="text-secondary">
+                        PREZZO:
+                    </span>
+                    <div class="d-flex flex-column">
+                        @if (article()?.price) {
+                            @if (user()?.uid === authService.currentUserCredential()?.uid) {
+                                <div class="d-flex flex-row justify-content-end align-items-center">
+                                    <span class="text-muted me-3"> {{ article()!.price }}</span>
+                                    <button type="button" class="btn btn-primary" (click)="collapse.toggle()"
+                                    [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">Modifica</button>
+                                </div>
+
+                                    <div #collapse="ngbCollapse"
+                                     [(ngbCollapse)]="isCollapsed">
+                                        <div class="card border-0">
+                                            <div class="card-body">
+                                                <div class="d-flex flex-row">
+                                                    <input type="number"
+                                                    class="form-control rounded-pill shadow-none mx-3"
+                                                    [formControl]="price">
+                                                    <button type="button" 
+                                                    class="btn btn-outline-primary rounded-pill"
+                                                    (click)="updatePrice()">Invia</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                        }@else {
+                            <span class="text-muted"> - </span>
+                            }
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between p-2 mx-3 my-3">
+                    <span class="text-secondary">
+                        CATEGORIA:
+                    </span>
+                    @if (article()?.category) {
+                    <span class="text-muted"> {{ article()!.category }}</span>
+                    }@else {
+                    <span class="text-muted"> - </span>
+                    }
+                </div>
+
+                <div class="d-flex justify-content-between p-2 mx-3 my-3">
+                    <span class="text-secondary">
+                        CARICATO:
+                    </span>
+                    @if (article()?.price) {
+                    <span class="text-muted"> {{ article()!.data }}</span>
+                    }@else {
+                    <span class="text-muted"> - </span>
+                    }
+                </div>
+
+                <div class="d-flex justify-content-between p-2 mx-3 my-3">
+                    <span class="text-secondary">
+                        DESCRIZIONE:
+                    </span>
+                    @if (article()?.price) {
+                    <span class="text-muted"> {{ article()!.description }}</span>
+                    }@else {
+                    <span class="text-muted"> - </span>
+                    }
+                </div>
+
+                <div class="d-flex justify-content-between p-2 mx-3 my-3">
+                    <span class="text-secondary">
+                        CONDIZIONI:
+                    </span>
+                    @if (article()?.price) {
+                    <span class="text-muted"> {{ article()!.state }}</span>
+                    }@else {
+                    <span class="text-muted"> - </span>
+                    }
+                </div>
+
+
             </div>
-        } 
+
+
         </div>
     </div>
 </div>

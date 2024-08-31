@@ -49,16 +49,16 @@ export class FirestoreService {
     return updateDoc ( ref, { photoURL : photoURL }); 
   }
 
-  updatePreferList(id:string, articleID : string){
-    const ref = doc (this.firestore, 'users', id);
-    return updateDoc ( ref, { preferList : arrayUnion (articleID)})
-  }
-
   updateArticlePhotos (id:string, photos:string[]){
     const ref = doc (this.firestore, 'articles', id); 
     return updateDoc (ref, { photos : photos})
   }
 
+  updatePreferList(id:string, articleID : string){
+    const ref = doc (this.firestore, 'users', id);
+    return updateDoc ( ref, { preferList : arrayUnion (articleID)})
+  }
+  
   deleteFromPreferList(id:string, articleID : string){
     const ref = doc (this.firestore, 'users', id);
     return updateDoc ( ref, { preferList : arrayRemove (articleID)})
@@ -67,6 +67,11 @@ export class FirestoreService {
   updateNumPrefersArticle(id : string, value : number){
     const ref = doc (this.firestore, 'articles', id); 
     return updateDoc (ref, { numPrefers : value})
+  }
+
+  updatePrice (articleID : string, price : number){
+    const ref = doc (this.firestore, 'articles', articleID); 
+    return updateDoc (ref, { price : price})
   }
 
   updateArticlePhoto(){}

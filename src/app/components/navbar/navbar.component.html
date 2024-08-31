@@ -63,7 +63,7 @@
                         <li class="dropdown-item" (click)="this.router.navigateByUrl('chats/'+this.authService.currentUserCredential()?.uid)">
                             Messaggi
                         </li>
-                        <li class="dropdown-item text-danger" (click)="this.authService.logout()">
+                        <li class="dropdown-item text-danger" (click)="logout()">
                             Esci 
                         </li>
                     </ul>

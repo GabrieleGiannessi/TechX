@@ -13,16 +13,16 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-
+  
   authService = inject(AuthService);
   router = inject (Router);  
   storage = inject(StorageService); 
-
+  
   modalService = inject (NgbModal);
   closeResult = '';
   
   @ViewChild('profileImage') profileImage! : ElementRef<HTMLInputElement>;
-
+  
   constructor (){
     effect (() => {
       if(this.authService.logged()){
@@ -37,15 +37,20 @@ export class NavbarComponent {
       }
     }
   )}
-
+  
   signInWithGoogle (){
     return this.authService.signInWithGoogle().then (() => this.router.navigateByUrl ('/home'));
   }
+  
+  logout() {
+    this.authService.logout(); 
+    this.router.navigateByUrl('home'); 
+  }
 
   open(content: TemplateRef<any>) {
-		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
-			(result) => {
-				this.closeResult = `Closed with: ${result}`;
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+      (result) => {
+        this.closeResult = `Closed with: ${result}`;
 			},
 			(reason) => {
 				this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
