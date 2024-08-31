@@ -1,0 +1,11 @@
+<div class="container-fluid d-flex flex-row align-items-center shadow-sm p-0"
+(click)="router.navigateByUrl('profile/')">
+    <img 
+    #profileImage
+    [src]=""
+    alt="chatPic"
+    class="img-fluid p-2"
+    style="object-fit:cover; border-radius: 50%; width: 6rem; height: 6rem;">
+
+    <h4 class="text-secondary"> {{ chat().chatName }}</h4>
+</div>

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { Chat } from '../../services/chat.service';
 
 @Component({
   selector: 'app-chat-area',
@@ -9,4 +10,7 @@ import { Component } from '@angular/core';
 })
 export class ChatAreaComponent {
 
+  chat = input.required<Chat>(); 
+
+  
 }

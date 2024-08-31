@@ -13,6 +13,7 @@
 				[formControl]="searchUser"
 				[ngbTypeahead]="search"
 				placeholder="Cerca..."
+                (selectItem)="createChatFromSelect($event)"
                 (keydown.enter)="createChat()"
 			/>
 			@if (searching) {
@@ -21,12 +22,33 @@
 			@if (searchFailed) {
 				<div class="invalid-feedback">Nessun utente trovato.</div>
 			}
-                </div>
+            </div>
+
+            <ul class="list-group list-group-flush border-top mt-3"></ul>
+                    @for (chat of userChats(); track $index) {
+                        <app-chat-button
+                        [chat]="chat"
+                        (chatSelected)="handleChatSelected($event)"/>
+                    }
             </div>
 
             <!-- current chat -->
-            <div class="col-8 bg-white rounded-end-4 shadow-sm" style="height: calc(90vh);">
+            <div class="col-8 bg-white rounded-end-4 shadow-sm p-0" style="height: calc(90vh);">
+                @if (selectedChat()) {
+                    <app-chat-header
+                    [chat]="selectedChat()!"/>
 
+                    <app-chat-area
+                    [chat]="selectedChat()!"/>
+
+                    <app-chat-input-area
+                    [chat]="selectedChat()!"/>
+
+                }@else {
+                    <div class="d-flex w-100 justify-content-center align-items-center" style="height: calc(90vh);">
+                        <h4 class="text-secondary">Seleziona una chat per messaggiare!</h4>
+                    </div>
+                }
             </div>
         </div>
     </div>
