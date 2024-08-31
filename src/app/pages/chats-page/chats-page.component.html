@@ -42,7 +42,8 @@
                     [chat]="selectedChat()!"/>
 
                     <app-chat-input-area
-                    [chat]="selectedChat()!"/>
+                    [chat]="selectedChat()!"
+                    [userID]="this.id()"/>
 
                 }@else {
                     <div class="d-flex w-100 justify-content-center align-items-center" style="height: calc(90vh);">

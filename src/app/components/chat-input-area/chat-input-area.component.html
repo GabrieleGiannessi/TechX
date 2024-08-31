@@ -1,1 +1,13 @@
-<p>chat-input-area works!</p>
+<div class="container-fluid position-relative d-flex flex-row justify-content-center align-items-center">
+    <input 
+    type="text"
+    [formControl]="text"
+    class="form-control rounded-pill border-0 shadow-none mt-2"
+    placeholder="Messaggio"
+    (keyup)="onKeyUp($event)"
+    >
+    @if (text.value?.length) {
+        <i class="bi bi-send-fill h4 text-secondary position-absolute top-50 end-0 translate-middle-y me-3 mt-1"
+        (click)="sendMessageFromIcon()"></i>
+    }
+</div>

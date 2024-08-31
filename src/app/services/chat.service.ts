@@ -2,7 +2,7 @@ import { computed, inject, Injectable } from '@angular/core';
 import { AuthService, UserInterface } from './auth.service';
 import { FirestoreService } from './firestore.service';
 import { map, Observable, of } from 'rxjs';
-import { addDoc, collection, collectionData, CollectionReference, Firestore, Timestamp } from '@angular/fire/firestore';
+import { addDoc, collection, collectionData, CollectionReference, doc, Firestore, Timestamp, updateDoc } from '@angular/fire/firestore';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { user } from '@angular/fire/auth';
 
@@ -12,7 +12,6 @@ import { user } from '@angular/fire/auth';
 export class ChatService {
 
   firestore = inject(FirestoreService);
-  
   authService = inject (AuthService); 
 
   userChatList = computed(() => this.firestore.users().map (user => user.username)); 
@@ -45,7 +44,27 @@ export class ChatService {
 
     return chats; 
   }
-  getMessages(){}
+
+  sendMessage(chat: Chat, message: string, id : string) {
+    const date = Timestamp.fromDate(new Date()); 
+    const ref = collection (this.firestore.firestore, 'chats', chat.id, 'messages'); 
+    //inserisco il messaggio nella chat e aggiorno la chat con data e ultimo messaggio
+    addDoc (ref, {
+      text : message, 
+      senderID : id, 
+      sentDate : date,
+    }); 
+    updateDoc (doc (this.firestore.firestore, 'chats', chat.id), {
+      lastMessage : message, 
+      lastMessageDate : date, 
+    })
+  }
+
+  getMessages(chat : Chat){
+    const messageCollection = <CollectionReference<Message>> collection (this.firestore.firestore, 'chats', chat.id, 'messages'); 
+    return <Observable<Message[]>> collectionData ( messageCollection ); 
+  }
+  
 }
 
 export interface Chat{

@@ -32,8 +32,6 @@ export class ChatsPageComponent {
   userChats = computed (() => this.chatService.addDisplayNameAndPic(this.chatService.chats().filter ((chat) => chat.userIDs.includes(this.id())),this.id())); 
   selectedChat = signal<Chat|null>(null); 
 
-  log = effect (() => console.log (this.selectedChat()))
-
   //funzione di ricerca per typeahead
   search: OperatorFunction<string, readonly string[]> = (text$: Observable<string>) =>
     text$.pipe(
@@ -51,7 +49,7 @@ export class ChatsPageComponent {
     if (!otherUser) return; 
 
     this.chatService.addChat(otherUser);
-    this.searchUser.setValue('');
+    this.searchUser.reset();
   }
 
   createChatFromSelect (e : NgbTypeaheadSelectItemEvent ){
@@ -60,8 +58,7 @@ export class ChatsPageComponent {
     if (!otherUser) return; 
 
     this.chatService.addChat(otherUser);
-    this.searchUser.setValue(username);
-    this.searchUser.setValue('');
+    this.searchUser.reset(); 
   }
 
   handleChatSelected( chat : Chat) {
