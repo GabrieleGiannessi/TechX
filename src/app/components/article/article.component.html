@@ -1,5 +1,5 @@
 <div class="col mb-3">
-    <div class="card p-2 bg-white border-0">
+    <div class="card p-2 bg-white border-0 h-100">
         <div class="card-header bg-white border-0 d-flex flex-row align-items-center p-0"
             (click)="router.navigateByUrl('profile/'+user()?.uid)">
             <img #profileImage [src]="" class="p-2 img-fluid"
@@ -24,7 +24,7 @@
             </button>
         </div>
 
-        <div class="card-body h-100">
+        <div class="card-body">
             <div class="pb-2 ps-2">
                 <h5 class="card-title">{{ title() }}</h5>
                 <small class="text-muted"> {{ price() }}€</small>
