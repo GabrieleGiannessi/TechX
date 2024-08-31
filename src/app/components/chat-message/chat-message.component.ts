@@ -8,7 +8,7 @@ import { DateDisplayPipe } from "../../pipes/date-display.pipe";
   standalone: true,
   imports: [DateDisplayPipe],
   templateUrl: './chat-message.component.html',
-  styleUrl: './chat-message.component.css'
+  styleUrl: './chat-message.component.css',
 })
 export class ChatMessageComponent {
 

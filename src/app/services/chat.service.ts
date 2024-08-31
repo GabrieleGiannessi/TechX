@@ -2,9 +2,10 @@ import { computed, inject, Injectable } from '@angular/core';
 import { AuthService, UserInterface } from './auth.service';
 import { FirestoreService } from './firestore.service';
 import { map, Observable, of } from 'rxjs';
-import { addDoc, collection, collectionData, CollectionReference, doc, Firestore, Timestamp, updateDoc } from '@angular/fire/firestore';
+import { addDoc, collection, collectionData, CollectionReference, doc, Firestore, query, Timestamp, updateDoc } from '@angular/fire/firestore';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { user } from '@angular/fire/auth';
+import { orderBy } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -61,8 +62,9 @@ export class ChatService {
   }
 
   getMessages(chat : Chat){
-    const messageCollection = <CollectionReference<Message>> collection (this.firestore.firestore, 'chats', chat.id, 'messages'); 
-    return <Observable<Message[]>> collectionData ( messageCollection ); 
+    const ref = <CollectionReference<Message>> collection (this.firestore.firestore, 'chats', chat.id, 'messages'); 
+    const queryAll = query (ref, orderBy('sentDate', 'asc')); 
+    return <Observable<Message[]>> collectionData ( queryAll ); 
   }
   
 }

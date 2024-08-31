@@ -9,7 +9,6 @@ import { DateDisplayPipe } from "../../pipes/date-display.pipe";
   imports: [DateDisplayPipe],
   templateUrl: './chat-button.component.html',
   styleUrl: './chat-button.component.css',
-  providers: [DateDisplayPipe]
 })
 export class ChatButtonComponent {
 

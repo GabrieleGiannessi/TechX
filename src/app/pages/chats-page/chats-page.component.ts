@@ -9,7 +9,6 @@ import { ChatButtonComponent } from "../../components/chat-button/chat-button.co
 import { ChatHeaderComponent } from "../../components/chat-header/chat-header.component";
 import { ChatAreaComponent } from "../../components/chat-area/chat-area.component";
 import { ChatInputAreaComponent } from "../../components/chat-input-area/chat-input-area.component";
-import { DateDisplayPipe } from '../../pipes/date-display.pipe';
 
 @Component({
   selector: 'app-chats-page',
@@ -17,7 +16,6 @@ import { DateDisplayPipe } from '../../pipes/date-display.pipe';
   imports: [ReactiveFormsModule, NgbTypeahead, ChatButtonComponent, ChatHeaderComponent, ChatAreaComponent, ChatInputAreaComponent],
   templateUrl: './chats-page.component.html',
   styleUrl: './chats-page.component.css',
-  providers: [DateDisplayPipe]
 })
 export class ChatsPageComponent {
 
