@@ -1,0 +1,19 @@
+
+<div class="col my-3">
+    <div class="container-fluid d-flex flex-row align-items-center bg-white rounded-4"
+    (click)="router.navigateByUrl('profile/'+user().uid)">
+        <!-- photo -->
+         <div class="d-flex p-2">
+            <img #profileImage 
+            class="img-fluid"
+            [src]="" 
+            alt="Photo"
+            style="object-fit: contain; border-radius: 50%; width: 6rem; height: 6rem;">
+         </div>
+
+         <div class="d-flex flex-column p-2 ms-3">
+            <h4 class="text-primary">{{ user().username }}</h4>
+            <small class="text-muted"> {{ user().email }}</small>
+         </div>
+    </div>
+</div>

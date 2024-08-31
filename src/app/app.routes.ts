@@ -11,6 +11,7 @@ import { ModifyUserPageComponent } from './pages/modify-user-page/modify-user-pa
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { SavedArticlePageComponent } from './pages/saved-article-page/saved-article-page.component';
 import { CreateNewArticlePageComponent } from './pages/create-new-article-page/create-new-article-page.component';
+import { UsersPageComponent } from './pages/users-page/users-page.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomePageComponent, title:'Home' },
@@ -20,6 +21,7 @@ export const routes: Routes = [
     { path: 'chats/:id', component:  ChatsPageComponent, title:'Chats' },
     { path: 'new', component:  CreateNewArticlePageComponent, title:'New article' },
     { path: 'articles', component: ArticlesPageComponent , title:'Articles'},
+    { path: 'users', component: UsersPageComponent, title:'Users'},
     { path: 'login', component: LoginPageComponent , title:'Login' },
     { path: 'register', component: RegisterPageComponent , title: 'Register' },
     { path: 'forgot-password', component: ForgotPasswordPageComponent , title:'Forgot Password' },

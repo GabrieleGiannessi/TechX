@@ -40,7 +40,7 @@
                 <!-- bottoni articolo -->
                 <div class="d-flex w-100 justify-content-center align-items-center">
                     <div class="d-flex flex-wrap justify-content-center align-items-center  gap-2 p-3 w-75">
-                        @if (user()?.uid === authService.currentUserCredential()?.uid){
+                        @if (authService.logged() && user()?.uid === authService.currentUserCredential()?.uid){
                         <button class="btn btn-outline-primary rounded-pill border-0">
                             Segna come prenotato
                         </button>
@@ -51,9 +51,11 @@
                             Elimina articolo
                         </button>
                         }@else {
-                        <button class="btn btn-outline-primary rounded-pill border-0">
-                            Compra articolo
-                        </button>
+                            @if (authService.logged()) {
+                                <button class="btn btn-outline-primary rounded-pill border-0">
+                                    Compra articolo
+                                </button>
+                            }
                         }
                     </div>
                 </div>
@@ -75,7 +77,7 @@
                     </span>
                     <div class="d-flex flex-column">
                         @if (article()?.price) {
-                            @if (user()?.uid === authService.currentUserCredential()?.uid) {
+                            @if (authService.logged() && user()?.uid === authService.currentUserCredential()?.uid) {
                                 <div class="d-flex flex-row justify-content-end align-items-center">
                                     <span class="text-muted me-3"> {{ article()!.price }}</span>
                                     <button type="button" class="btn btn-primary" (click)="collapse.toggle()"

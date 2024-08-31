@@ -34,6 +34,7 @@ export class ProfilePageComponent {
   
   constructor(){
     effect (() => {
+      console.log (this.userArticles())
       if (this.user()){
         if (this.user()?.photoURL){
           this.storage.fetchProfilePic(this.user()!.photoURL).then((url) => {

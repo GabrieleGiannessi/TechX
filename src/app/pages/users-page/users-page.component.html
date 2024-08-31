@@ -1,0 +1,15 @@
+<div class="container-fluid d-flex flex-column" style="padding-top: 2em;">
+
+    @defer () {
+        <div class="row row-cols-1 p-2" style="animation: fade-up 0.5s;">
+            @for (user of userList(); track $index) {
+                <app-user
+                [user]="user"/>
+            }
+        </div>
+    }
+            
+
+
+
+</div>

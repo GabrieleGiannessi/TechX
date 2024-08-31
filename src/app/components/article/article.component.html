@@ -1,21 +1,29 @@
 <div class="col mb-3">
     <div class="card p-2 bg-white border-0">
         <div class="card-header bg-white border-0 d-flex flex-row align-items-center p-0"
-        (click)="router.navigateByUrl('profile/'+user()?.uid)">
-            <img #profileImage 
-            [src]="" 
-            class="p-2 img-fluid"
-            style="object-fit: cover; border-radius: 50%; width: 3rem; height: 3rem;"
-            alt="profile photo">
+            (click)="router.navigateByUrl('profile/'+user()?.uid)">
+            <img #profileImage [src]="" class="p-2 img-fluid"
+                style="object-fit: cover; border-radius: 50%; width: 3rem; height: 3rem;" alt="profile photo">
             <span class="text-secondary px-2"> {{ this.user()?.username }}</span>
         </div>
-    
+
         <div class="image-wrapper">
             <img #articleImage [src]="article().photos[0]" class="card-img-top" alt="article photo"
                 style="object-fit: cover; width: 100%; height: 100%;"
                 (click)="this.router.navigateByUrl('article/'+article().id)">
+            <button class="position-absolute bottom-0 end-0 bg-light rounded-circle border-0 me-2 mb-2 p-2 "
+                (click)="setPrefer()">
+                @if (prefer()) {
+                <i id="prefers" class="bi bi-suit-heart-fill text-danger"></i>
+                }@else {
+                <i id="prefers" class="bi bi-suit-heart-fill text-secondary"></i>
+                }
+                @if (article().numPrefers) {
+                <span class="text-secondary"> {{ article().numPrefers }}</span>
+                }
+            </button>
         </div>
-    
+
         <div class="card-body h-100">
             <div class="pb-2 ps-2">
                 <h5 class="card-title">{{ title() }}</h5>
@@ -23,7 +31,7 @@
             </div>
             <p class="card-text p-2">{{ description() }}</p>
         </div>
-    </div>    
+    </div>
 </div>
 
 <ng-template #content let-modal>
@@ -32,15 +40,19 @@
     </div>
     <div class="modal-body">
         <div class="mb-3 d-flex flex-column justify-content-center align-items-center">
-            <button class="btn border border-secondary text-secondary bg-light rounded-pill p-3 d-flex align-items-center gap-3"
-            (click)="signInWithGoogle()">
-                <img src="../assets/google-icon.png" alt="google photo" class="img-fluid" style="object-fit: contain; width: 2.5rem; height: 2.5rem;">
+            <button
+                class="btn border border-secondary text-secondary bg-light rounded-pill p-3 d-flex align-items-center gap-3"
+                (click)="signInWithGoogle()">
+                <img src="../assets/google-icon.png" alt="google photo" class="img-fluid"
+                    style="object-fit: contain; width: 2.5rem; height: 2.5rem;">
                 <span>Accedi con google</span>
-            </button> 
+            </button>
 
             <h4 class="text-secondary mt-3">Oppure</h4>
-            <span class="text-secondary fs-6 mt-4">Accedi tramite <a href="/login" class="outline-none text-primary">email e password</a></span>
-            <span class="text-secondary fs-6 mt-2">Non hai un account?  <a href="/register" class="outline-none text-primary">Registrati!</a></span>
+            <span class="text-secondary fs-6 mt-4">Accedi tramite <a href="/login"
+                    class="outline-none text-primary">email e password</a></span>
+            <span class="text-secondary fs-6 mt-2">Non hai un account? <a href="/register"
+                    class="outline-none text-primary">Registrati!</a></span>
         </div>
     </div>
-</ng-template> 
+</ng-template>
