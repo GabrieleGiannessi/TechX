@@ -22,6 +22,7 @@ export class NavbarComponent {
   closeResult = '';
   
   @ViewChild('profileImage') profileImage! : ElementRef<HTMLInputElement>;
+  @ViewChild('content') content!: TemplateRef<any>;
   
   constructor (){
     effect (() => {
@@ -39,7 +40,10 @@ export class NavbarComponent {
   )}
   
   signInWithGoogle (){
-    return this.authService.signInWithGoogle().then (() => this.router.navigateByUrl ('/home'));
+    this.authService.signInWithGoogle().then (() => {
+      this.router.navigateByUrl ('/home'); 
+    });
+    this.modalService.dismissAll(); 
   }
   
   logout() {

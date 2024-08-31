@@ -11,7 +11,7 @@ export class DateDisplayPipe implements PipeTransform {
   datePipe = inject(DatePipe); 
 
   transform(value: Timestamp): string {
-    return this.datePipe.transform(value.toMillis(), 'short') ?? '';
+    return this.datePipe.transform(value?.toMillis(), 'short') ?? '';
   }
 
 }

@@ -48,17 +48,14 @@ export class ChatsPageComponent {
     const otherUser = this.firestore.users().find(u => u.username === this.searchUser.value);
     if (!otherUser) return; 
 
+    const chat = this.chatService.chats().find(chat => chat.userIDs.includes(this.id()) && chat.userIDs.includes(otherUser.uid)); 
+    if(chat){
+      this.selectedChat.set(chat);
+      return; 
+    }
+
     this.chatService.addChat(otherUser);
     this.searchUser.reset();
-  }
-
-  createChatFromSelect (e : NgbTypeaheadSelectItemEvent ){
-    const username = e.item; 
-    const otherUser = this.firestore.users().find(u => u.username === username);
-    if (!otherUser) return; 
-
-    this.chatService.addChat(otherUser);
-    this.searchUser.reset(); 
   }
 
   handleChatSelected( chat : Chat) {

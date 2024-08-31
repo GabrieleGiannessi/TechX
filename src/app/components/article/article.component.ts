@@ -69,7 +69,8 @@ export class ArticleComponent {
   }
 
   signInWithGoogle (){
-    return this.authService.signInWithGoogle().then (() => this.router.navigateByUrl ('/articles'));
+    this.authService.signInWithGoogle().then (() => this.router.navigateByUrl ('/articles'));
+    this.modalService.dismissAll(); 
   }
 
   open(content: TemplateRef<any>) {

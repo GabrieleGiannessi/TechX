@@ -171,6 +171,7 @@ export class CreateNewArticlePageComponent {
       // Mostra popup di conferma o altro
       this.open(this.content);
       this.form.reset(); 
+      element.files = null; 
 
     }).catch(error => {
       console.error('Errore nel caricamento delle foto:', error);

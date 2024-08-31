@@ -77,7 +77,7 @@ export interface Chat{
   users : UserInterface[]; 
 
   chatPic?: string; 
-  chatName: string; 
+  chatName?: string; 
 }
 
 export interface Message{

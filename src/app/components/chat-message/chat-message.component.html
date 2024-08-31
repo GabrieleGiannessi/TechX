@@ -1,17 +1,17 @@
 @if (message().senderID === authService.currentUserCredential()?.uid) {
     <div class="d-flex justify-content-end w-100">
-        <span class="bg-primary pt-3 ps-3 pb-3 mb-3 text-white position-relative rounded-4" style="width: fit-content; padding-right: 8em;">
+        <span class="bg-primary pt-1 ps-3 pb-3 mb-3 text-white position-relative rounded-4" style="width: fit-content; padding-right: 8em;">
             {{ message().text }}
-            <span class="position-absolute mb-1 me-1 text-light" style="bottom:2px; right: 8px;">
-                {{ message().sentDate}}
+            <span class="position-absolute mb-1 me-1 text-light" style="bottom:2px; right: 8px; font-size: 0.7rem;">
+                {{ message().sentDate | dateDisplay }}
             </span>
         </span>
     </div>
 }@else {
     <div class="d-flex justify-content-start w-100">
-        <span class="bg-white pt-3 ps-3 pb-3 mb-3 position-relative rounded-4" style="width: fit-content; padding-right: 8em;">
+        <span class="bg-white pt-1 ps-3 pb-3 mb-3 position-relative rounded-4" style="width: fit-content; padding-right: 8em;">
             {{ message().text }}
-            <span class="position-absolute mb-1 me-1 text-muted" style="bottom:2px; right: 8px;">
+            <span class="position-absolute mb-1 me-1 text-muted" style="bottom:2px; right: 8px; font-size: 0.7rem;">
                 {{ message().sentDate | dateDisplay }}
             </span>
         </span>

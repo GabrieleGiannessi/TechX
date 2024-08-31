@@ -2,7 +2,7 @@
     <div class="contianer-fluid rounded-4 w-100 px-3" style="height: calc(90vh); animation: fade-up 0.5s;" >
         <div class="row">
             <!-- lista delle chat -->
-            <div class="col-4 bg-white rounded-start-4 shadow-sm" style="height: calc(90vh);">
+            <div class="col-4 bg-white rounded-start-4 shadow-sm" style="height: calc(90vh);overflow:auto;">
                 <div class="d-flex flex-column justify-content-center align-items-center p-3 mt-2">
                 <label for="typeahead-users" class="form-label text-muted">Cerca il nome dell'utente per iniziare una chat</label>
                 <input
@@ -13,7 +13,6 @@
 				[formControl]="searchUser"
 				[ngbTypeahead]="search"
 				placeholder="Cerca..."
-                (selectItem)="createChatFromSelect($event)"
                 (keydown.enter)="createChat()"
 			/>
 			@if (searching) {
