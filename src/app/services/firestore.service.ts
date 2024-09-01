@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import {  collection, CollectionReference, Timestamp, addDoc, arrayRemove, arrayUnion, collectionData, doc, Firestore, updateDoc, setDoc, deleteDoc } from '@angular/fire/firestore';
-import { AuthService, UserInterface } from './auth.service';
+import {  UserInterface } from './auth.service';
 import { toSignal } from '@angular/core/rxjs-interop'
-import { map, Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -83,6 +83,11 @@ export class FirestoreService {
   deleteArticle(id: string) {
     const docRef = doc (this.firestore, 'articles', id); 
     return deleteDoc (docRef); 
+  }
+
+  deleteArticleFromUser (userID : string, articleID : string){
+    const userRef = doc (this.firestore, 'users', userID); 
+    return updateDoc (userRef, { preferList : arrayRemove(articleID)})
   }
 
 }

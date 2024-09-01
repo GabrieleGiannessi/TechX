@@ -99,10 +99,13 @@ export class ArticleComponent {
   removeArticle() {
     if (this.article()){
       this.firestore.deleteArticle(this.article().id!); 
+
+      //rimuovere dalla lista dei preferiti (se presente) degli utenti l'articolo (funzione di cleanup)
+      this.firestore.users().forEach((user) => {
+        if (user.preferList.includes(this.article().id!)){
+          this.firestore.deleteArticleFromUser (user.uid, this.article().id!); //rimuoviamo dal db l'articolo presente nella preferList
+        } 
+      })
     }
-    }
-
-
-
-
+  }
 }

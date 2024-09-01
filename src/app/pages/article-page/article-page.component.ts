@@ -21,7 +21,7 @@ export class ArticlePageComponent {
   isCollapsed = true;
   price = new FormControl ('', [Validators.required]); 
 
-  article = computed (() => this.firestore.articles().find (article => article.id === this.id())); 
+  article = computed (() => this.firestore.articles().find(article => article.id === this.id())!); 
   articlePhotos = computed (() => this.article()?.photos.slice (1)); 
 
   user = computed (() => this.firestore.users().find(user => user.uid === this.article()?.userID)); //utente che ha fatto l'articolo
@@ -35,6 +35,20 @@ export class ArticlePageComponent {
   updatePrice(){
     if(!this.price.valid) return; 
     this.firestore.updatePrice (this.id(), parseFloat(this.price.value!)); 
+  }
+
+  //metodo usato per rimuovere l'articolo
+  removeArticle() {
+    if (this.article()){
+      this.firestore.deleteArticle(this.article().id!); 
+
+      //rimuovere dalla lista dei preferiti (se presente) degli utenti l'articolo (funzione di cleanup)
+      this.firestore.users().forEach((user) => {
+        if (user.preferList.includes(this.article().id!)){
+          this.firestore.deleteArticleFromUser (user.uid, this.article().id!); //rimuoviamo dal db l'articolo presente nella preferList
+        } 
+      })
+    }
   }
   
   
