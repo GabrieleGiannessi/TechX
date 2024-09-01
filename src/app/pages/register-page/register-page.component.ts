@@ -3,6 +3,7 @@ import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validatio
 import { AuthService } from '../../services/auth.service';
 import { FirestoreService } from '../../services/firestore.service';
 import { Router } from '@angular/router';
+import { doc, updateDoc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-register-page',
@@ -44,17 +45,21 @@ onSubmit(e : Event) {
 
   const { email, password, username } = this.form.value; //sono validi
   this.authService.register(email, password).then(response => {
-    this.firestoreService.addUser({
-      uid : response.user.uid,  
+    this.firestoreService.addUser(response.user.uid, {  
       email : email, 
       username : username, 
       photoURL : 'unknown.png', 
       description: '', 
       preferList : [], 
       phoneNumber : ''
-    }); 
-    this.router.navigateByUrl ('/home'); 
+    }).then(() => {
+      updateDoc (doc(this.firestoreService.firestore, 'users', response.user.uid), { uid : response.user.uid }).then(() => {
+        this.authService.currentUserSig.set ( this.firestoreService.users().find (u => u.uid === response.user.uid)); 
+        this.router.navigateByUrl ('/home'); 
+      })  
+    })
   })
+
   .catch ((error) => { console.log (error.message); })
 }
 

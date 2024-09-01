@@ -45,11 +45,11 @@ export class AuthService {
   }
 
   register (email : string, password: string) {
-    return createUserWithEmailAndPassword(this.auth,email, password); 
+    return createUserWithEmailAndPassword(this.auth, email, password); 
   }
 
   login(email:string, password: string) {
-    return signInWithEmailAndPassword(this.auth,email,password);
+    return signInWithEmailAndPassword(this.auth, email,password);
   }
 
   logout(){

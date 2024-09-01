@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import {  collection, CollectionReference, Timestamp, addDoc, arrayRemove, arrayUnion, collectionData, doc, Firestore, updateDoc } from '@angular/fire/firestore';
+import {  collection, CollectionReference, Timestamp, addDoc, arrayRemove, arrayUnion, collectionData, doc, Firestore, updateDoc, setDoc } from '@angular/fire/firestore';
 import { AuthService, UserInterface } from './auth.service';
 import { toSignal } from '@angular/core/rxjs-interop'
 import { map, Observable, of } from 'rxjs';
@@ -19,11 +19,18 @@ export class FirestoreService {
   private article$ =  <Observable<Article[]>> collectionData (this.articlesCollection, { idField : 'id'}); 
   articles = toSignal (this.article$, { initialValue : []})
 
-  addUser(user : UserInterface) {
-    const ref = collection (this.firestore, 'users'); 
-    return addDoc ( ref, user ); 
-  } 
-
+  addUser(id: string, user: Partial<UserInterface>) {
+    const ref = doc(this.firestore, 'users', id);
+    return setDoc(ref, {
+      email: user.email,
+      username: user.username,
+      photoURL: user.photoURL,
+      description: user.description,
+      preferList: user.preferList,
+      phoneNumber: user.phoneNumber,
+    }, { merge: true }); // Merge assicura che i campi esistenti non vengano sovrascritti se non specificati.
+  }
+  
   addArticle(article : Article){
     const ref = collection (this.firestore, 'articles'); 
     return addDoc ( ref, article ); 
