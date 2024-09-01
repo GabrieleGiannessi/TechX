@@ -47,7 +47,8 @@
                         <button class="btn btn-outline-primary rounded-pill border-0">
                             Segna come venduto
                         </button>
-                        <button class="btn btn-outline-danger rounded-pill border-0">
+                        <button class="btn btn-outline-danger rounded-pill border-0"
+                        (click)="removeArticle()">
                             Elimina articolo
                         </button>
                         }@else {
@@ -64,7 +65,7 @@
                     <span class="text-secondary">
                         TITOLO:
                     </span>
-                    @if (article()?.title) {
+                    @if (article().title) {
                     <span class="text-muted"> {{ article()!.title }}</span>
                     }@else {
                     <span class="text-muted"> - </span>
@@ -76,7 +77,7 @@
                         PREZZO:
                     </span>
                     <div class="d-flex flex-column">
-                        @if (article()?.price) {
+                        @if (article().price) {
                             @if (authService.logged() && user()?.uid === authService.currentUserCredential()?.uid) {
                                 <div class="d-flex flex-row justify-content-end align-items-center">
                                     <span class="text-muted me-3"> {{ article()!.price }}</span>
@@ -110,7 +111,7 @@
                     <span class="text-secondary">
                         CATEGORIA:
                     </span>
-                    @if (article()?.category) {
+                    @if (article().category) {
                     <span class="text-muted"> {{ article()!.category }}</span>
                     }@else {
                     <span class="text-muted"> - </span>
@@ -121,7 +122,7 @@
                     <span class="text-secondary">
                         CARICATO:
                     </span>
-                    @if (article()?.price) {
+                    @if (article().price) {
                     <span class="text-muted"> {{ article()!.data }}</span>
                     }@else {
                     <span class="text-muted"> - </span>
@@ -132,7 +133,7 @@
                     <span class="text-secondary">
                         DESCRIZIONE:
                     </span>
-                    @if (article()?.price) {
+                    @if (article().price) {
                     <span class="text-muted"> {{ article()!.description }}</span>
                     }@else {
                     <span class="text-muted"> - </span>
@@ -143,7 +144,7 @@
                     <span class="text-secondary">
                         CONDIZIONI:
                     </span>
-                    @if (article()?.price) {
+                    @if (article().price) {
                     <span class="text-muted"> {{ article()!.state }}</span>
                     }@else {
                     <span class="text-muted"> - </span>
@@ -157,3 +158,18 @@
         </div>
     </div>
 </div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="mb-3 d-flex flex-column justify-content-center align-items-center">
+            <span class="text-secondary fs-4">L'articolo è stato eliminato con successo! </span>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.close('Save click');  this.router.navigateByUrl('home')">Home</button>
+        <button type="button" class="btn btn-outline-primary" (click)="modal.close('Save click'); this.router.navigateByUrl('profile/'+this.id())">Profilo</button>
+    </div>
+</ng-template>  
