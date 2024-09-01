@@ -12,6 +12,7 @@ export class CategoryButtonComponent {
 
   router = inject (Router); 
 
-  image = input.required<string>(); 
+  bgColor = input.required<string>(); 
   title = input.required<string>(); 
+  
 }

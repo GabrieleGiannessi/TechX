@@ -18,7 +18,7 @@ const categories: string[] = [
   "Dispositivi di archiviazione",
   "Telefonia",
   "Tablet",
-  "Dispositivi IOT",
+  "Dispositivi IOT",  
   "Strumenti audio", 
 ];
 
