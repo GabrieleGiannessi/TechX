@@ -1,6 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { ref, Storage, uploadBytesResumable } from '@angular/fire/storage';
-import { getDownloadURL, UploadTask } from 'firebase/storage';
+import { getDownloadURL, ref, Storage, uploadBytesResumable } from '@angular/fire/storage';
 
 @Injectable({
   providedIn: 'root'

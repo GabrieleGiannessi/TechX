@@ -1,8 +1,7 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, sendPasswordResetEmail, signInWithCredential, signInWithEmailAndPassword, signInWithPopup, signOut } from '@angular/fire/auth';
-import { collection, getDocs, query } from '@angular/fire/firestore';
+import { collection, getDocs, query, where } from '@angular/fire/firestore';
 import { FirestoreService } from './firestore.service';
-import { where } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
