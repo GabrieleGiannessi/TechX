@@ -1,8 +1,8 @@
-<div class="col h-100 rounded-4"
-[style.background-color]="bgColor()">
-    <div class="card border-0 text-white" (click)="router.navigate(['articles'], { queryParameters : { category : title()}})">
-        <div class="d-flex align-items-center justify-content-center">
+<div class="col h-100 rounded-4">
+    <div class="card border-0 text-white d-flex align-items-center justify-content-center"
+    (click)="router.navigate(['articles'], { queryParams: { category: title() }} )"
+    [style.background-color]="bgColor()"
+    style="height: calc(20vh);">
           <h5 class="card-title"> {{ title() }}</h5>
-        </div>
       </div>
 </div>

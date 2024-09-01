@@ -1,5 +1,5 @@
 import { Component, inject, input } from '@angular/core';
-import { Router } from 'express';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-category-button',
@@ -14,5 +14,5 @@ export class CategoryButtonComponent {
 
   bgColor = input.required<string>(); 
   title = input.required<string>(); 
-  
+
 }

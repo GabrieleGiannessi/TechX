@@ -1,4 +1,4 @@
-<div class="container-fluid bg-light" style="height: 80vh;">
+<div class="container-fluid bg-light" style="height: 120vh;">
     <div class="container-fluid h-100 d-flex flex-column align-items-center justify-content-center px-5 m-auto">
         <!-- barra di ricerca -->
         @if (authService.logged()) {
@@ -18,18 +18,15 @@
             [search]="search"
             class="w-75"/>
         
-        <div class="container-fluid d-flex my-5 justify-content-center">
-            <h2 class="text-primary">Categorie</h2>
-        </div>
-    </div>
-    <div class="container-fluid w-100 d-flex">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 p-2">
-                @for (color of cardColors; track $index) {
-                    <p>ciao</p>
-                    <app-category-button
-                    [bgColor]="color"
-                    [title]="categories[$index]"/>
-                }
+        <div class="container-fluid d-flex flex-column mt-5 justify-content-center align-content-center">
+            <h2 class="d-flex p-3 justify-content-center align-items-center ">Categorie</h2>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 p-2" style="animation: fade-up 0.5s;">
+                    @for (color of cardColors; track $index) {
+                        <app-category-button
+                        [bgColor]="color"
+                        [title]="categories[$index]"/>
+                    }
+            </div>
         </div>
     </div>
 </div>

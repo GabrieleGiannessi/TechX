@@ -35,8 +35,10 @@ export class ArticlesPageComponent implements OnInit {
   ngOnInit () : void {
     this.route.queryParamMap.subscribe(params => {
       const titleParam = params.get('title');
+      const categoryParam = params.get('category');
 
       if(titleParam) this.title.set(titleParam);
+      if(categoryParam) this.category.set(categoryParam);
       });
   }
 
@@ -73,7 +75,6 @@ export class ArticlesPageComponent implements OnInit {
   filteredArticles = filteredArticles.filter(article => 
     article.price >= minVal && article.price <= maxVal
   );
-
 
     // Imposta gli articoli filtrati e ordinati
     return filteredArticles; 
