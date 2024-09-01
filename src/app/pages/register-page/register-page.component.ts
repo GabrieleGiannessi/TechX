@@ -53,8 +53,8 @@ onSubmit(e : Event) {
       preferList : [], 
       phoneNumber : ''
     }).then(() => {
-      updateDoc (doc(this.firestoreService.firestore, 'users', response.user.uid), { uid : response.user.uid }).then(() => {
-        this.authService.currentUserSig.set ( this.firestoreService.users().find (u => u.uid === response.user.uid)); 
+      updateDoc (doc(this.firestoreService.firestore, 'users', response.user.uid), { uid : response.user.uid }).then(() => { //aggiorno l'id del profilo appena creato
+        this.authService.currentUserSig.set ( this.firestoreService.users().find (u => u.uid === response.user.uid) ); 
         this.router.navigateByUrl ('/home'); 
       })  
     })
