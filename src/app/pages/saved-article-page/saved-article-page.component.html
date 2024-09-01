@@ -1,20 +1,25 @@
 <div class="container-fluid d-flex flex-column" style="padding-top: 3em;">
     <!-- container per i filtri -->
     <div class="container-fluid d-flex flex-wrap justify-content-center align-items-center gap-3 p-5">
-        <app-filter-button
-        [label]="'Prezzo'"/>
-        <app-filter-button
-        [label]="'Categoria'"/>
-        <app-filter-button
-        [label]="'Ordine'"/>
-        <button class="btn btn-primary rounded-pill border-0">Applica</button>
+        
+        <app-price-filter
+        [(max)]="max"
+        [(min)]="min"
+        />
+
+        <app-order-filter
+        [(order)]="order"/>
+
+        <app-category-filter
+        [(category)]="category"/>
+
     </div>
 
     <!-- articoli-->
      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 p-2">
         @defer () {
             @for (article of savedArticles(); track $index) {
-                    @if (authService.currentUserCredential()?.preferList && authService.currentUserCredential()!.preferList.includes(article.id!) ) {
+                    @if (this.user()?.preferList && this.user()!.preferList.includes(article.id!) ) {
                         <app-article
                     [article]="article"
                     [isPrefered]="true"/>
