@@ -32,6 +32,52 @@ body {
     display: block;
 }
 
+.dropdown-center {
+    position: relative;
+  }
+  
+  .dropdown-menu {
+    width: 300px;
+    border-radius: 10px;
+  }
+  
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    background: transparent;
+    position: absolute;
+    left: 0;
+  }
+  
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background: var(--bs-primary);
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+  }
+  
+  input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 14px;
+    border-radius: 3px;
+    background: var(--bs-light);
+    border: none;
+  }
+  
+  .range-fill {
+    height: 6px;
+    z-index: 1;
+    border-radius: 3px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+
+
 
 @keyframes fade-down {
     0%{

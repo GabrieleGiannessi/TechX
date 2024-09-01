@@ -1,1 +1,49 @@
-<p>price-filter works!</p>
+<div class="dropdown-center">
+    <button class="btn border border-primary bg-white rounded-pill dropdown-toggle" data-bs-toggle="dropdown">
+      Prezzo
+    </button>
+    <ul class="dropdown-menu p-3">
+      <div class="dropdown-header">
+        Inserisci un intervallo di prezzo
+      </div>
+      
+      <div class="p-2 rounded-3 w-100">
+        <div class="d-flex flex-column align-items-center">
+          <div class="d-flex flex-row justify-content-between w-100 mb-3">
+            <div>
+              <label class="text-muted fs-5">Min</label>
+              <p class="fw-bolder">{{ min() }}€</p>
+            </div>
+            <div>
+              <label class="text-muted fs-5">Max</label>
+              <p class="fw-bolder">{{ max() }}€</p>
+            </div>
+          </div>
+  
+          <div class="position-relative w-100 mb-2">
+            <div class="range-fill position-absolute bg-primary"></div>
+  
+            <!-- Min range input -->
+            <input 
+              type="range" 
+              [value]="min()" 
+              min="0" 
+              max="9999" 
+              step="1" 
+              (input)="onMinInput($event)"
+              >
+  
+            <!-- Max range input -->
+            <input 
+              type="range" 
+              [value]="max()" 
+              min="0" 
+              max="9999" 
+              step="1" 
+              (input)="onMaxInput($event)">
+          </div>
+        </div>
+      </div>
+    </ul>
+  </div>
+  
