@@ -124,7 +124,7 @@ export class CreateNewArticlePageComponent {
 
     // Aggiungiamo le foto dell'articolo allo storage
 
-    const { state, title, description, price, category } = this.form.value;
+    const { condition, title, description, price, category } = this.form.value;
 
     const element = <HTMLInputElement>document.querySelector('#article-photos');
     const input = element.files ? element.files : null;
@@ -152,7 +152,8 @@ export class CreateNewArticlePageComponent {
         category: category,
         price: price,
         photos: uploadedPhotoUrls,
-        state: state,
+        condition : condition,
+        state: 'idle',
         data: Timestamp.fromDate(new Date()),
         description: description,
         numPrefers: 0

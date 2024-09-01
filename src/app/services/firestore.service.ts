@@ -99,6 +99,7 @@ export interface Article{
   category: string, 
   price: number, 
   photos : string[], 
+  condition : string
   state : string, 
   data : Timestamp
   description : string,

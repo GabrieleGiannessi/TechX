@@ -27,7 +27,12 @@ export class ProfilePageComponent {
   state = signal<string>(''); 
   user = computed (() => this.firestore.users().find ((user) => user.uid === this.id())); 
 
-  userArticles = computed (() => this.firestore.articles().filter ((article) => article.userID === this.user()?.uid))
+  userArticles = computed (() => {
+    return this.state() ? this.firestore.articles().filter ((article) => article.userID === this.user()?.uid && article.state === this.state()) :
+     this.firestore.articles().filter ((article) => article.userID === this.user()?.uid); 
+  })
+
+  log = effect (() => console.log ('state', this.state())); 
   
   constructor(){
     effect (() => {

@@ -83,10 +83,10 @@
                 </div>
 
                 <div class="d-flex flex-row align-items-center mb-5 w-100">
-                    <label for="state" class="form-label d-flex justify-content-center align-items-center pe-3">Stato</label>
-                    <select name="state"
-                    id="state"
-                    formControlName="state"
+                    <label for="condition" class="form-label d-flex justify-content-center align-items-center pe-3">Stato</label>
+                    <select name="condition"
+                    id="condition"
+                    formControlName="condition"
                     class="form-select rounded-pill text-muted shadow-none">
                     <option class="bg-white text-dark" value="ottimo">Ottimo - come nuovo</option>
                     <option class="bg-white text-dark" value="buono">Buono</option>
@@ -94,8 +94,8 @@
                     <option class="bg-white text-dark" value="accettabile">Accettabile</option>  
                 </select>
                 
-                @if (form.invalid && (form.controls['state'].touched || form.controls['state'].dirty)){
-                    @if (form.controls['state'].errors?.['required']) {
+                @if (form.invalid && (form.controls['condition'].touched || form.controls['condition'].dirty)){
+                    @if (form.controls['condition'].errors?.['required']) {
                         <span class="form-text text-danger p-2">
                             Aggiungere uno stato all'articolo
                         </span>

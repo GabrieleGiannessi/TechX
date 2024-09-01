@@ -101,12 +101,16 @@
                         <!-- lista degli articoli dell'utente -->
                          <div class="d-flex flex-wrap justify-content-center align-items-center gap-3">
                             <app-filter-button
+                            [(state)]="state"
                             [label]="'idle'"/>
                             <app-filter-button
+                            [(state)]="state"
                             [label]="'booked'"/>
                             <app-filter-button
+                            [(state)]="state"
                             [label]="'draft'"/>
                             <app-filter-button
+                            [(state)]="state"
                             [label]="'sold'"/>
                          </div>
 
