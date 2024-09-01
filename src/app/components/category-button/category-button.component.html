@@ -1,1 +1,8 @@
-<p>category-button works!</p>
+<div class="col h-100 rounded-4">
+    <div class="card border-0 text-white" (click)="router.navigate(['articles'], { queryParameters : { category : title()}})">
+        <img [src]="image()" class="card-img" alt="image">
+        <div class="card-img-overlay d-flex align-items-center justify-content-center">
+          <h5 class="card-title"> {{ title() }}</h5>
+        </div>
+      </div>
+</div>

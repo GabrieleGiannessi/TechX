@@ -5,13 +5,15 @@ import { AuthService } from '../../services/auth.service';
 import { ModalDismissReasons, NgbCollapseModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DateDisplayPipe } from "../../pipes/date-display.pipe";
 
 @Component({
   selector: 'app-article-page',
   standalone: true,
-  imports: [NavbarComponent, NgbCollapseModule, ReactiveFormsModule],
+  imports: [NavbarComponent, NgbCollapseModule, ReactiveFormsModule, DateDisplayPipe],
   templateUrl: './article-page.component.html',
-  styleUrl: './article-page.component.css'
+  styleUrl: './article-page.component.css', 
+  providers: [DateDisplayPipe]
 })
 export class ArticlePageComponent {
 

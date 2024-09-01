@@ -1,7 +1,8 @@
-import { Component, effect, ElementRef, inject, input, ViewChild } from '@angular/core';
+import { Component, computed, effect, ElementRef, inject, input, ViewChild } from '@angular/core';
 import { Chat } from '../../services/chat.service';
 import { Router } from '@angular/router';
 import { StorageService } from '../../services/storage.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-chat-header',
@@ -13,9 +14,19 @@ import { StorageService } from '../../services/storage.service';
 export class ChatHeaderComponent {
 
     router = inject(Router); 
-    storage = inject (StorageService); 
+    storage = inject (StorageService);
+    authService = inject (AuthService);  
 
     chat = input.required<Chat>(); 
+
+    //devo recuperare l'id dello user con cui sto chattando 
+    otherUserID = computed (() => {
+      if (this.authService.currentUserCredential()){
+        const otherIndex = this.chat().userIDs.indexOf(this.authService.currentUserCredential()!.uid) ? 0 : 1; 
+        return this.chat().userIDs[otherIndex]; 
+      }
+      return ''; 
+    })
 
     @ViewChild('profileImage') profileImage! : ElementRef<HTMLInputElement>;
 

@@ -19,6 +19,7 @@ const categories: string[] = [
   "Telefonia",
   "Tablet",
   "Dispositivi IOT",
+  "Strumenti audio", 
 ];
 
 @Component({

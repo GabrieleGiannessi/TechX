@@ -1,11 +1,11 @@
 <div class="container-fluid d-flex flex-row align-items-center shadow-sm p-0"
-(click)="router.navigateByUrl('profile/')">
+(click)="router.navigateByUrl('profile/'+otherUserID())">
     <img 
     #profileImage
     [src]=""
     alt="chatPic"
-    class="img-fluid p-2"
+    class="img-fluid p-3"
     style="object-fit:cover; border-radius: 50%; width: 6rem; height: 6rem;">
 
-    <h4 class="text-secondary"> {{ chat().chatName }}</h4>
+    <h4 class="text-secondary ms-3 mt-2"> {{ chat().chatName }}</h4>
 </div>

@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="d-flex justify-content-center px-5" style="padding-top: 4em; padding-bottom: 3em;">
-        <div class="d-flex flex-column justify-content-center align-content-center rounded-4 bg-white w-75">
+        <div class="d-flex flex-column justify-content-center align-content-center rounded-4 bg-white w-75" style="animation: fade-up 0.5s;">
             <!-- Carosello foto -->
             <div class="container-fluid d-flex justify-content-center align-content-center p-5">
                 @if (article()) {
@@ -66,7 +66,7 @@
                         TITOLO:
                     </span>
                     @if (article().title) {
-                    <span class="text-muted"> {{ article()!.title }}</span>
+                    <span class="text-muted"> {{ article().title }}</span>
                     }@else {
                     <span class="text-muted"> - </span>
                     }
@@ -123,7 +123,7 @@
                         CARICATO:
                     </span>
                     @if (article().price) {
-                    <span class="text-muted"> {{ article()!.data }}</span>
+                    <span class="text-muted"> {{ article()!.data | dateDisplay }}</span>
                     }@else {
                     <span class="text-muted"> - </span>
                     }
@@ -145,7 +145,7 @@
                         CONDIZIONI:
                     </span>
                     @if (article().price) {
-                    <span class="text-muted"> {{ article()!.state }}</span>
+                    <span class="text-muted"> {{ article()!.condition }}</span>
                     }@else {
                     <span class="text-muted"> - </span>
                     }

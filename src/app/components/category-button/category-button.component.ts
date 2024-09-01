@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
+import { Router } from 'express';
 
 @Component({
   selector: 'app-category-button',
@@ -9,4 +10,8 @@ import { Component } from '@angular/core';
 })
 export class CategoryButtonComponent {
 
+  router = inject (Router); 
+
+  image = input.required<string>(); 
+  title = input.required<string>(); 
 }

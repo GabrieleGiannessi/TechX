@@ -26,10 +26,10 @@ export class ChatService {
     return addDoc(ref, {
       userIDs : [this.authService.currentUserCredential()?.uid, otherUser.uid], 
       users : [{
-        displayName : this.authService.currentUserCredential()?.username, 
+        username : this.authService.currentUserCredential()?.username, 
         photoURL : this.authService.currentUserCredential()?.photoURL,
       },{
-        displayName: otherUser.username,
+        username: otherUser.username,
         photoURL : otherUser.photoURL,
       }]
     })
