@@ -1,10 +1,26 @@
 <div class="col bg-white h-100 rounded-3 mb-3">
     <div class="card p-2 border-0">
-        <div class="card-header bg-white border-0 d-flex flex-row align-items-center p-0"
-            (click)="router.navigateByUrl('profile/'+user()?.uid)">
+        <div class="card-header bg-white border-0 d-flex flex-row align-items-center p-0">
             <img #profileImage [src]="" class="p-2 img-fluid"
-                style="object-fit: cover; border-radius: 50%; width: 3rem; height: 3rem;" alt="profile photo">
-            <span class="text-secondary px-2"> {{ this.user()?.username }}</span>
+                style="object-fit: cover; border-radius: 50%; width: 3rem; height: 3rem;"
+                alt="profile photo"
+                (click)="router.navigateByUrl('profile/'+user()?.uid)">
+            <span class="text-secondary px-2"
+            (click)="router.navigateByUrl('profile/'+user()?.uid)"> {{ this.user()?.username }}</span>
+            @if (article().userID === authService.currentUserCredential()?.uid) {
+                <div class="d-none d-lg-flex flex-grow-1 justify-content-end">
+                    <button class="btn btn-transparent border-0 dropdown-toggle me-2"
+                    data-bs-toggle="dropdown">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+    
+                    <div class="dropdown-menu">
+                        <div 
+                        class="dropdown-item text-danger"
+                        (click)="removeArticle()">Elimina articolo </div>
+                    </div>
+                </div>
+            }
         </div>
 
         <div class="image-wrapper">

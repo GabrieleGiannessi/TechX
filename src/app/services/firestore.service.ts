@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import {  collection, CollectionReference, Timestamp, addDoc, arrayRemove, arrayUnion, collectionData, doc, Firestore, updateDoc, setDoc } from '@angular/fire/firestore';
+import {  collection, CollectionReference, Timestamp, addDoc, arrayRemove, arrayUnion, collectionData, doc, Firestore, updateDoc, setDoc, deleteDoc } from '@angular/fire/firestore';
 import { AuthService, UserInterface } from './auth.service';
 import { toSignal } from '@angular/core/rxjs-interop'
 import { map, Observable, of } from 'rxjs';
@@ -80,7 +80,11 @@ export class FirestoreService {
     return updateDoc (ref, { price : price})
   }
 
-  updateArticlePhoto(){}
+  deleteArticle(id: string) {
+    const docRef = doc (this.firestore, 'articles', id); 
+    return deleteDoc (docRef); 
+  }
+
 }
 
 export interface Article{

@@ -95,6 +95,13 @@ export class ArticleComponent {
 		}
 	}
 
+  //metodo usato per rimuovere l'articolo
+  removeArticle() {
+    if (this.article()){
+      this.firestore.deleteArticle(this.article().id!); 
+    }
+    }
+
 
 
 
