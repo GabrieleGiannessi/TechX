@@ -25,21 +25,18 @@
           "/media/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
         ]
       }
-    },
-    {
-      "name": "fallback",
-      "installMode": "prefetch",
-      "resources": {
-        "files": [
-          "/assets/fallback.html"
-        ]
-      }
     }
   ],
-  "dataGroups": [],
-  "navigationUrls": [
-    "/**",
-    "!/assets/**",
-    "!/api/**"
-  ]
+  "dataGroups": [{
+    "name": "api-freshness",
+    "urls": [
+      "https://firebasestorage.googleapis.com/v0/b/app-saw2024.appspot.com/o/"
+    ],
+    "cacheConfig": {
+      "maxSize": 100,
+      "maxAge": "180d",
+      "timeout": "10s",
+      "strategy": "freshness"
+    }
+  }]
 }

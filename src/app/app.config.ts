@@ -1,13 +1,12 @@
 import { ApplicationConfig, isDevMode } from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
-
-import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideServiceWorker } from '@angular/service-worker';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { provideAuth, getAuth } from '@angular/fire/auth';
+import { routes } from "./app.routes"
 
 const firebaseConfig = {
   apiKey: "AIzaSyBfLUXCZ8C8k4KgAGAO5sHrFSdDBtkboc8",
@@ -19,8 +18,6 @@ const firebaseConfig = {
   measurementId: "G-6Y8KGCYC2J"
 };
 
-// Initialize Firebase
-
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, withComponentInputBinding()),
@@ -30,7 +27,8 @@ export const appConfig: ApplicationConfig = {
     provideStorage(() => getStorage()),
     provideClientHydration(), 
     provideServiceWorker('ngsw-worker.js', {
-        enabled: !isDevMode(),
-        registrationStrategy: 'registerWhenStable:30000'
-    })]
+      enabled: !isDevMode(),  
+      registrationStrategy: 'registerWhenStable:30000'
+      })
+    ]
 };

@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { DateDisplayPipe } from './pipes/date-display.pipe';
 import { DatePipe } from '@angular/common';
+import { SwPush } from '@angular/service-worker';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,16 @@ import { DatePipe } from '@angular/common';
   styleUrl: './app.component.css',
   providers: [DatePipe, DateDisplayPipe]
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'TechX';
+
+  SwPush = inject (SwPush);
+
+  ngOnInit(): void {
+      this.SwPush.messages.subscribe( message => {
+        console.log(message); 
+      } )
+  }
+
+
 }
