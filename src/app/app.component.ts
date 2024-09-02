@@ -1,9 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, Inject, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { DateDisplayPipe } from './pipes/date-display.pipe';
-import { DatePipe } from '@angular/common';
-import { SwPush } from '@angular/service-worker';
+import { DatePipe, isPlatformBrowser } from '@angular/common';
 import { NotificationService } from './services/notification.service';
 
 @Component({
@@ -19,8 +18,12 @@ export class AppComponent implements OnInit{
 
   notificationService = inject (NotificationService); 
 
+  constructor(@Inject(PLATFORM_ID) private platformId: Object){}
+
   ngOnInit(): void {
-    this.notificationService.subscribeToPush(); 
+    if (isPlatformBrowser(this.platformId)) {
+      this.notificationService.subscribeToPush(); 
+    }
   }
   
   

@@ -12,6 +12,9 @@
           "/manifest.webmanifest",
           "/*.css",
           "/*.js"
+        ], 
+        "urls": [
+          "!/firebase-messaging-sw.js" 
         ]
       }
     },
