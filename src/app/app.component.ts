@@ -16,13 +16,16 @@ import { SwPush } from '@angular/service-worker';
 export class AppComponent implements OnInit{
   title = 'TechX';
 
-  SwPush = inject (SwPush);
+  SwPush = inject (SwPush); 
 
   ngOnInit(): void {
-      this.SwPush.messages.subscribe( message => {
-        console.log(message); 
-      } )
+    this.subscribeToPush(); 
   }
-
-
+  
+  subscribeToPush (): void {
+    this.SwPush.messages.subscribe( (message : any) => {
+      console.log(message); 
+    } )
+  }
+  
 }

@@ -5,6 +5,7 @@ import { provideServiceWorker } from '@angular/service-worker';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
+import { provideMessaging, getMessaging, getToken } from '@angular/fire/messaging';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { routes } from "./app.routes"
 
