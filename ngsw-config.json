@@ -25,6 +25,21 @@
           "/media/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
         ]
       }
+    },
+    {
+      "name": "fallback",
+      "installMode": "prefetch",
+      "resources": {
+        "files": [
+          "/assets/fallback.html"
+        ]
+      }
     }
+  ],
+  "dataGroups": [],
+  "navigationUrls": [
+    "/**",
+    "!/assets/**",
+    "!/api/**"
   ]
 }

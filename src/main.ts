@@ -10,7 +10,7 @@ bootstrapApplication(AppComponent, appConfig)
 if ('serviceWorker' in navigator) {
   window.addEventListener("load", () => {
       if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("service-worker.js");
+        navigator.serviceWorker.register("custom-sw.js"); //registro il sw personalizzato
       }
     });
 }
