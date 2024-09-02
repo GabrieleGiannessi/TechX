@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-login-page',
@@ -14,7 +15,34 @@ export class LoginPageComponent {
 
   authService = inject (AuthService); 
   router = inject(Router);
-  
+  modalService = inject(NgbModal);
+  closeResult = '';
+
+  error = signal <string> (''); 
+  @ViewChild('content') content!: TemplateRef<any>;
+
+  open(content: TemplateRef<any>) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+      (result) => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      },
+    );
+  }
+
+  private getDismissReason(reason: any): string {
+    switch (reason) {
+      case ModalDismissReasons.ESC:
+        return 'by pressing ESC';
+      case ModalDismissReasons.BACKDROP_CLICK:
+        return 'by clicking on a backdrop';
+      default:
+        return `with: ${reason}`;
+    }
+  }
+
   form : FormGroup = new FormGroup({
     email: new FormControl ('', [Validators.required]),
     password: new FormControl ('', [Validators.required]),  
@@ -29,6 +57,10 @@ export class LoginPageComponent {
     const { email, password } = this.form.value;
     this.authService.login(email, password).then(response => {
       this.router.navigateByUrl('/home');
+    })
+    .catch (err => {
+      this.error.set (err.message); 
+      this.open(this.content); 
     })
   }
 

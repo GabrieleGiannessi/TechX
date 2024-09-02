@@ -2,6 +2,7 @@ import { Component, inject, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-forgot-password-page',
@@ -14,6 +15,7 @@ export class ForgotPasswordPageComponent {
 
   authService = inject (AuthService); 
   modalService = inject(NgbModal); 
+  router = inject (Router)
   closeResult = ''; 
 
   email : FormControl = new FormControl ('', [Validators.required, Validators.email]);
