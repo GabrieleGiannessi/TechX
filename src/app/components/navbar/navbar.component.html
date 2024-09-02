@@ -5,11 +5,11 @@
         @if (authService.logged()){
             
             <div class="d-none d-md-flex flex-row-reverse justify-content-end align-items-center pe-3" style="animation: fade-down 0.5s;">
-            <button type="button" class="btn btn-primary text-white border-0 shadow-none rounded-pill px-2 "
+            <button type="button" class="btn btn-primary text-white border-0 shadow-none rounded-pill px-2 mb-1 "
             (click)="this.router.navigateByUrl('new')">Carica articolo</button>
-            <button type="button" class="btn btn-primary text-white border-0 shadow-none rounded-circle mx-4 "><i class="bi bi-bell-fill"></i></button>
+
             <div class="btn-group">
-                <button class="btn dropdown-toggle p-2 text-white border-0 shadow-none " data-bs-toggle="dropdown" type="button" aria-expanded="false">
+                <button class="btn dropdown-toggle p-2 text-white border-0 shadow-none me-2 " data-bs-toggle="dropdown" type="button" aria-expanded="false">
                     <img 
                     #profileImage
                     [src]="" alt="Profile photo"
@@ -42,7 +42,7 @@
         
         @if (authService.logged()){
             
-            <div class="d-sm-flex d-md-none flex-row-reverse justify-content-end align-items-center">
+            <div class="d-sm-flex d-md-none flex-row-reverse justify-content-end align-items-center me-2">
                     <div class="dropstart">
                         <button class="btn dropdown-toggle text-white p-2 border-0 shadow-none " data-bs-toggle="dropdown" type="button" aria-expanded="false">
                             <i class="bi bi-three-dots text-white"></i>
@@ -51,9 +51,6 @@
                         <ul class="dropdown-menu">
                             <li class="dropdown-item">
                                 Carica Articolo
-                            </li>
-                            <li class="dropdown-item">
-                               Notifiche 
                             </li>
                             <li class="dropdown-item" (click)="this.router.navigateByUrl('profile/'+this.authService.currentUserCredential()?.uid)">
                                 Profilo

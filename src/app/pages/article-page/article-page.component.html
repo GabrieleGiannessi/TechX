@@ -53,8 +53,8 @@
                         </button>
                         }@else {
                             @if (authService.logged()) {
-                                <button class="btn btn-outline-primary rounded-pill border-0">
-                                    Compra articolo
+                                <button class="btn btn-outline-primary rounded-pill border-0" (click)="router.navigateByUrl('chats/'+authService.currentUserCredential()?.uid)">
+                                    Manda un messaggio
                                 </button>
                             }
                         }
