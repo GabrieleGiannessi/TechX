@@ -22,7 +22,7 @@ export class HomePageComponent {
   
   cardColors: string[] = [
     '#007bff',  // Blu
-    '#007bff',
+    '#4B0082',  // Viola
     '#28a745',  // Verde
     '#dc3545',  // Rosso
     '#ffc107',  // Giallo

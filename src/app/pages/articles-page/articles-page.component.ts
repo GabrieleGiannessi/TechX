@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { FilterButtonComponent } from "../../components/filter-button/filter-button.component";
 import { Article, FirestoreService } from '../../services/firestore.service';
 import { ActivatedRoute, Router } from '@angular/router';

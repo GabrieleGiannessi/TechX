@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:TechX": "node dist/tech-x/server/server.mjs"
+    "serve:ssr:TechX": "node dist/tech-x/server/server.mjs",
+    "start-pwa": "ng build --configuration production && ng serve dist/tech-x"
   },
   "private": true,
   "dependencies": {

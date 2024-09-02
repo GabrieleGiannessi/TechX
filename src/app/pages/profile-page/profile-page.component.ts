@@ -31,12 +31,9 @@ export class ProfilePageComponent {
     return this.state() ? this.firestore.articles().filter ((article) => article.userID === this.user()?.uid && article.state === this.state()) :
      this.firestore.articles().filter ((article) => article.userID === this.user()?.uid); 
   })
-
-  log = effect (() => console.log ('state', this.state())); 
   
   constructor(){
     effect (() => {
-      console.log (this.userArticles())
       if (this.user()){
         if (this.user()?.photoURL){
           this.storage.fetchProfilePic(this.user()!.photoURL).then((url) => {
