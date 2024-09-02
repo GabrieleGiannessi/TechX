@@ -4,6 +4,7 @@ import { NavbarComponent } from "./components/navbar/navbar.component";
 import { DateDisplayPipe } from './pipes/date-display.pipe';
 import { DatePipe } from '@angular/common';
 import { SwPush } from '@angular/service-worker';
+import { NotificationService } from './services/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -16,16 +17,11 @@ import { SwPush } from '@angular/service-worker';
 export class AppComponent implements OnInit{
   title = 'TechX';
 
-  SwPush = inject (SwPush); 
+  notificationService = inject (NotificationService); 
 
   ngOnInit(): void {
-    this.subscribeToPush(); 
+    this.notificationService.subscribeToPush(); 
   }
   
-  subscribeToPush (): void {
-    this.SwPush.messages.subscribe( (message : any) => {
-      console.log(message); 
-    } )
-  }
   
 }

@@ -26,10 +26,10 @@ export const appConfig: ApplicationConfig = {
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
+    provideMessaging(() => getMessaging()),
     provideClientHydration(), 
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),  
       registrationStrategy: 'registerWhenStable:30000'
-      })
-    ]
+      })]
 };
