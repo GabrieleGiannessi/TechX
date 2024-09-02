@@ -27,6 +27,10 @@
                                 <span class="form-text text-danger">
                                     Inserisci una email
                                 </span>
+                            }@else if (form.controls['email'].errors?.['email']) {
+                                <span class="form-text text-danger">
+                                    Email non valida
+                                </span>
                             }
                         }
                     </div>
