@@ -28,7 +28,7 @@ export const appConfig: ApplicationConfig = {
     provideStorage(() => getStorage()),
     provideMessaging(() => getMessaging()),
     provideClientHydration(), 
-    provideServiceWorker('ngsw-worker.js', {
+    provideServiceWorker('firebase-messaging-sw.js', {
       enabled: !isDevMode(),  
       registrationStrategy: 'registerWhenStable:30000'
       })]

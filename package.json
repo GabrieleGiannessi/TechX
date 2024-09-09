@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:tech-x": "node dist/tech-x/server/server.mjs",
-    "start-pwa": "ng build --configuration production && node merge-sw.js && http-server -p 8080 -c-1 dist/tech-x/browser"
+    "start-pwa": "ng build --configuration production && http-server -p 8080 -c-1 dist/tech-x/browser"
   },
   "private": true,
   "dependencies": {
