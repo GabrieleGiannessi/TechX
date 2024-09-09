@@ -10,7 +10,9 @@ import { inject } from '@angular/core';
 export class NotificationService {
   private swPush = inject(SwPush);
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    this.swPush.messages.subscribe( message => console.log (message)) 
+  }
 
   async subscribeToPush(): Promise<void> {
 
@@ -24,7 +26,7 @@ export class NotificationService {
       try {
         const token = await getToken(messaging, {
           vapidKey: 'BLoF5JhwJMy_6WWcbmg74R3_MAfwjiMzyOaD2V9F_axBonn-Og0_I-1xjn95x74RgdDef1VlId-zUa5BHqD9lSw' // chiave VAPID
-        });
+        })
         console.log('Token:', token); //questo token devo metterlo nel db per recuperarlo al momento della send
         
         onMessage(messaging, (payload) => {
