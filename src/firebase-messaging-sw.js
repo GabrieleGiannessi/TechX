@@ -1,5 +1,5 @@
 
-importScripts('https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js');
+importScripts('assets/firebase/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/9.14.0/firebase-messaging.js');
 
 const firebaseConfig = {
@@ -16,6 +16,26 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const messaging = firebase.messaging();
+
+self.addEventListener("notificationclick", function (event) {
+  console.debug('SW notification click event', event)
+
+  const url = event.notification.data.link
+  event.waitUntil(
+    clients.matchAll({type: 'window'}).then( windowClients => {
+        
+        for (var i = 0; i < windowClients.length; i++) {
+            var client = windowClients[i];
+            if (client.url === url && 'focus' in client) {
+                return client.focus();
+            }
+        }
+        if (clients.openWindow) {
+            return clients.openWindow(url);
+        }
+    })
+);
+})
 
 messaging.onBackgroundMessage((payload) => {
   console.log('Messaggio ricevuto in background:', payload);

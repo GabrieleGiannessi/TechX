@@ -14,7 +14,7 @@
           "/*.js"
         ], 
         "urls": [
-          "!/firebase-messaging-sw.js" 
+          "src/firebase-messaging-sw.js" 
         ]
       }
     },
