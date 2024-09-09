@@ -65,7 +65,6 @@ export class ArticleComponent {
     }else {
       this.open(this.content); //apro il modal per loggarsi
     }
-
   }
 
   signInWithGoogle (){

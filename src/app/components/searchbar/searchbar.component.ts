@@ -34,5 +34,11 @@ export class SearchbarComponent {
         this.text.setValue(''); 
       }
 
+      if(e.key === 'Enter'){
+        this.router.navigate([this.search()], { queryParams : {
+          title : this.text.value
+      }})
+      }
+
     }
 }

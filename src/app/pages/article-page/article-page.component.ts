@@ -31,19 +31,25 @@ export class ArticlePageComponent {
   user = computed (() => this.firestore.users().find(user => user.uid === this.article()?.userID)); //utente che ha fatto l'articolo
 
   @ViewChild('content') content!: TemplateRef<any>;
+  @ViewChild('google') google!: TemplateRef<any>;
+
   modalService = inject(NgbModal);
   closeResult = '';
 
 
   constructor (){
     effect (() =>{
-      console.log (this.user())
+      console.log (this.article())
     })
   }
 
   updatePrice(){
     if(!this.price.valid) return; 
     this.firestore.updatePrice (this.id(), parseFloat(this.price.value!)); 
+  }
+
+  updateState(state:string){
+    this.firestore.updateState (this.id(), state);
   }
 
   //metodo usato per rimuovere l'articolo
@@ -82,6 +88,11 @@ export class ArticlePageComponent {
       default:
         return `with: ${reason}`;
     }
+  }
+
+  signInWithGoogle (){
+    this.authService.signInWithGoogle().then (() => this.router.navigateByUrl ('article/'+this.id()));
+    this.modalService.dismissAll(); 
   }
 
   

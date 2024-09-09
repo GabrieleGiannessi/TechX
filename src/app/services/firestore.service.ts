@@ -80,6 +80,11 @@ export class FirestoreService {
     return updateDoc (ref, { price : price})
   }
 
+  updateState (articleID : string, state : string){
+    const ref = doc (this.firestore, 'articles', articleID); 
+    return updateDoc (ref, { state : state})
+  }
+
   deleteArticle(id: string) {
     const docRef = doc (this.firestore, 'articles', id); 
     return deleteDoc (docRef); 

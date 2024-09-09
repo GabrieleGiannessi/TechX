@@ -56,7 +56,9 @@ onKeyUp (e : KeyboardEvent) {
     }
   }
 
-reset() {
+reset(e : MouseEvent) {
+  e.stopPropagation(); //non faccio propagare il click al bottone
+
   this.category.set('');
   this.text.setValue('')
 }
